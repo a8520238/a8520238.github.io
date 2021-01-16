@@ -43,7 +43,7 @@ copy:
 
 # social settings (社交圖標設置)
 # formal:
-#   icon: link || the description
+   icon: link || the description
 social:
   fab fa-github: https://github.com/a8520238 || Github
   fas fa-envelope: mailto:360238076@qq.com || Email
@@ -87,14 +87,14 @@ favicon: /img/favicon.png
 
 # Avatar (頭像)
 avatar: 
-  img: https://raw.githubusercontent.com/Yqzzxlj/Image-Hosting/master/%E5%A4%B4%E5%83%8F1.png
+  img: https://raw.githubusercontent.com/a8520238/images/main/blog_person.jpg
   effect: false
 
 # The banner image of home page
 index_img: 
 
 # If the banner of page not setting, it will show the top_img
-default_top_img: https://raw.githubusercontent.com/Yqzzxlj/Image-Hosting/master/%E9%A3%8E%E6%99%AF%E7%85%A75.jpeg
+default_top_img: https://raw.githubusercontent.com/a8520238/images/main/blog_backgroud.jpg
 
 # The banner image of archive page
 archive_img:
