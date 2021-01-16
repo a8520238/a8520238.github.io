@@ -45,8 +45,8 @@ copy:
 # formal:
 #   icon: link || the description
 social:
-  fab fa-github: https://github.com/yqzzxlj || Github
-  fas fa-envelope: mailto:yq736677@gmail.com || Email
+  fab fa-github: https://github.com/a8520238 || Github
+  fas fa-envelope: mailto:360238076@qq.com || Email
 
 # search (搜索)
 # --------------------------------------
@@ -386,7 +386,7 @@ footer:
     enable: false
     url:
     text:
-    icon: /img/icp.png
+    #icon: /img/icp.png
 
 # Analysis
 # --------------------------------------
@@ -622,7 +622,7 @@ aside:
     description:
     button: 
       icon: 
-      text: 欢迎大佬来玩
+      text: 木叶飞舞之处，火亦生生不息
       link: 
   card_announcement:
     enable: false
