@@ -43,7 +43,7 @@ copy:
 
 # social settings (社交圖標設置)
 # formal:
-   icon: link || the description
+   #icon: link || the description
 social:
   fab fa-github: https://github.com/a8520238 || Github
   fas fa-envelope: mailto:360238076@qq.com || Email
