@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="32714c94-b71d-46bd-ae78-50213909c798" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/themes/butterfly/_config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/themes/butterfly/_config.yml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -48,7 +47,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1610783248686</updated>
-      <workItem from="1610783249847" duration="15365000" />
+      <workItem from="1610783249847" duration="16853000" />
     </task>
     <servers />
   </component>

@@ -1,0 +1,7 @@
+- class_name: 友情链接
+  class_desc: 
+  link_list:
+    - name: Mr.Ai
+      link: https://leslieaibin.github.io/
+      avatar: https://raw.githubusercontent.com/leslieAIbin/leslieaibin.github.io/main/imgs/01.jpg
+      descr: 天下熙熙，皆为利来；天下攘攘，皆为利往
