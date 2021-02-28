@@ -1,0 +1,287 @@
+<!DOCTYPE html><html lang="cn" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Lgz_blog - Hey!</title><meta name="author" content="Lgz"><meta name="copyright" content="Lgz"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="释然过往，笑对未来">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Lgz_blog">
+<meta property="og:url" content="http://example.com/page/11/index.html">
+<meta property="og:site_name" content="Lgz_blog">
+<meta property="og:description" content="释然过往，笑对未来">
+<meta property="og:locale">
+<meta property="og:image" content="https://raw.githubusercontent.com/a8520238/images/main/blog_person.jpg">
+<meta property="article:author" content="Lgz">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/a8520238/images/main/blog_person.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/page/11/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2021-02-28 20:47:02'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Lgz_blog" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://raw.githubusercontent.com/a8520238/images/main/blog_person.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">116</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">14</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div id="body-wrap"><header class="full_page" id="page-header" style="background-image: url(https://raw.githubusercontent.com/a8520238/images/main/blog_backgroud.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Lgz_blog</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="site-info"><h1 id="site-title">Lgz_blog</h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://github.com/a8520238" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:360238076@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2021/02/27/%E5%B9%B6%E5%8F%91/9%E9%94%81/" title="锁">锁</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">java并发编程</a></span></div><div class="content">Java中的各种锁1 主流锁
+悲观锁
+
+
+悲观锁认为自己在使用数据时一定有别的线程来修改数据，Java中，synchronized关键字和Lock的实现类都是悲观锁。
+悲观锁适用于写操作多的情况
+
+
+乐观锁
+
+
+乐观锁认为自己在使用数据时不会有别的线程来修改数据，所以不添加锁，Java中最常见的乐观锁是CAS。
+乐观锁适合读操作多的情况。
+
+
+自旋锁（适应性自旋锁）
+
+
+使用场景：阻塞和唤醒一个线程需要操作系统切换CPU状态来完成，耗费处理器时间。许多情况下，同步资源的锁定时间很短，为了这一小段时间去切换线程，线程挂起和恢复现场可能会让系统得不偿失。
+自旋锁不会阻塞线程，而是会在while循环中等待
+如果锁占用的时间很长，自旋会浪费处理器资源，因此，自旋等待的时间必须有限度，如果超过次数没有获得，挂起线程。
+自适应自旋锁：自旋的时间或次数不再固定，而是由上一个同一个锁的自旋时间决定，如果刚刚成功了，认为很有可能自旋成功。自旋时间加长，反之减少。
+在JDK6之前，synchronized是依赖于操作系统Mutex Lock所实现的重量级锁，JDK6为了优化，引入了无锁-&gt;偏向锁-& ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2021/02/27/%E5%B9%B6%E5%8F%91/DCL/" title="DCL">DCL</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">java并发编程</a></span></div><div class="content">DCL（双重检查加锁）
+双重检查加锁被熟知为“懒汉式”单列模式的实现其代码如下：
+
+1234567891011121314public class DoubleCheckedLocking &#123;        private static SingleInstance singleInstance;    public static SingleInstance getInstance() &#123;        if (singleInstance &#x3D;&#x3D; null) &#123;            synchronized (DoubleCheckedLocking.class) &#123;                if (singleInstance &#x3D;&#x3D; null) &#123;                    singleInstance &#x3D;&#x3D; new SingleInstance();                &#125;            &#125;        &#12 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2021/02/27/%E5%B9%B6%E5%8F%91/%E5%BC%82%E6%AD%A5/" title="异步">异步</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">java并发编程</a></span></div><div class="content">
+@Async和 future进行异步
+
+Java如何将异步调用转为同步
+
+使用wait和notify
+使用条件锁、
+Future
+使用CountDownLatch
+使用CyclicBarrier
+
+</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2021/02/27/%E5%BA%94%E7%94%A8%E5%B1%82%E5%8D%8F%E8%AE%AEHTTP/" title="应用层协议">应用层协议</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></span></div><div class="content">1 网络应用程序体系结构两种主流应用体系结构
+
+客户-服务器体系结构
+
+
+服务器具有固定周知的地址，且总是打开
+客户之间不直接通信，客户只通过服务器的IP地址与服务器通信
+解决一服务器对多用户的问题：配备大量的数据中心，创建强大的虚拟服务器
+举例：Web, FTP, telnet, 电子邮件
+
+
+P2P体系结构
+
+
+不通过专门的服务器，是对等方和对等方之间的通信。
+应用程序对位于数据中心的专用服务器有很小的依赖，甚至没有
+举例：共享文件（迅雷等）
+
+
+混合结构，比如许多即时讯息应用
+
+
+服务器跟踪用户的IP地址—-&gt;客户-服务器体系结构
+用户与用户之间的报文在主机之间直接发送—-&gt;P2P体系结构2 进程通信进行通信实际上就是进程(process)，而不是程序。一个进程可以被认为是运行在端系统上的一个程序。
+多个进程在同一个端系统上时，直接使用进程间通信机制进行通信，且通信规则由操作系统来决定。
+当进程在不同的端系统上，相互之间进行通信，需要发送端生成报文并向网络中发送，接收端接受报文并可能通过回送报文进行响应。
+
+
+客户和服务器进程
+
+
+进程与计算机网络之间的接口：套接字
+ ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2021/02/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1%E5%B9%B6%E5%8F%91%E9%94%81/" title="数据库事务并发锁">数据库事务并发锁</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></span></div><div class="content">数据库事务并发锁1 事务1.1 事务的特性
+A(Atomicity)原子性
+  一个事务（transaction）中的所有操作，要么全部完成，要么全部不完成，不会结束在中间某个环节。事务在执行过程中发生错误，会被回滚（Rollback）到事务开始前的状态，就像这个事务从来没有执行过一样。
+
+C（Consistency）一致性
+  (consistency)事务在完成时，必须使所有的数据都保持一致状态。事务结束时，所有的内部数据结构（如B树索引或双向链表）都必须是正确的。
+
+I（Isolation）隔离性
+  数据库允许多个并发事务同时对其数据进行读写和修改的能力，隔离性可以防止多个事务并发执行时由于交叉执行而导致数据的不一致。事务隔离分为不同级别，包括读未提交（Read uncommitted）、读提交（read committed）、可重复读（repeatable read）和串行化（Serializable）。    
+
+D（Durability）持续性
+  事务处理结束后，对数据的修改就是永久的，即便系统故障也不会丢失。
+
+
+
+一致性和原子性的区别：原子性和一致性的的侧重点不同： ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2021/02/27/%E8%BF%90%E8%BE%93%E5%B1%82TCP/" title="运输层协议">运输层协议</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></span></div><div class="content">1 相关概念
+网络层提供了主机之间的逻辑通信，运输层协议为不同主机上的应用进程之间提供了逻辑通信。通过逻辑通信，运行不同进程的主机好像直相连一样。
+运输层协议实在端系统而不是路由器中实现的。在发送端，运输层将从发送应用程序进程接受到的报文转换成运输层分组，称为报文段（segment）
+UDP（User Datagram Protocol，用户数据报协议）为调用他的应用程序提供了一种不可靠、无连接的服务。
+TCP（Transmission Control Protocol， 传输控制协议） 为调用它的应用程序提供了一种可靠的、面向连接的服务。
+将主机间交付拓展到进程间交付被称为运输层的多路复用（transport-layer multiplexing）与多路分解（demultiplexing）
+UDP流量是不可调节的，使用UDP的应用程序可以根据需要以其愿意的任何速率发送数据。
+TCP 是面向连接的、可靠的流协议。流就是指不间断的数据结构。通过使用流量控制、序号、确认和定时器，TCP确保正确地、按序地将数据从发送进程交付给接受进程。
+TCP还提供拥塞控制（congestion contr ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2021/02/27/%E8%BF%9B%E7%A8%8B/" title="进程">进程</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></span></div><div class="content">1 程序与进程进程是计算机中处于运行中程序的实体。程序本身只是指令、数据及其组织形式的描述，进程才是程序（指令和数据）的真正运行实例。
+进程结构一般由3部分组成：代码段、数据段和堆栈段。代码段用于存放程序代码数据，数个进程可以共享同一个代码段。数据段存放程序的全局变量、常量和静态变量。堆栈段中栈用于函数调用，它存放着函数的参数，它存放着函数的参数，函数内部定义的局部变量。堆栈段还包括了进程控制块（Process Control Block， PCB）。PCB处于进程核心堆栈的底部，不需要额外分配空间。PCB时进程存在的唯一标识，系统通过PCB的存在而感知进程的存在。
+
+进程是程序的一次执行
+进程是一个程序及数据在处理机执行时所发生的活动
+进程时系统进行资源分配和调度的独立单位。进程的独立运行由进程控制块PCB控制和管理。进程映像时静态的进程。程序段、相关数据、PCB三部分构成了进程映像。PCB进程控制块（Process Control Block， PCB）。PCB处于进程核心堆栈的底部，不需要额外分配空间。PCB时进程存在的唯一标识，系统通过PCB的存在而感知进程的存在。
+
+2 进程 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2021/02/27/java/Map/" title="Map">Map</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6/">java集合框架</a></span></div><div class="content">1 HashMap和HashTable不同点
+HashTable继承于Dictionary类，HashMap继承于AbstractMap。AbstractMap中提供的基础方法更多，并且实现了多个通用的方法，而在Dictionary中只有少量的接口，并且都是abstract类型。
+HashMap可以允许存在一个为null的key和任意个为null的value,但是Hashtable中的key和value都不允许为null。当HashMap遇到为null的key时，会调用putForNullKey方法进行处理，对value没有处理，只要是对象就可以。而HashTable遇到null时，会直接抛出NullPointerException异常信息。
+Hashtable是同步的， HashMap不是，Collections类中存在一个静态方法：synchronizedMap()，该方法也是一个线程安全的Map对象。HashMap内部没有实现任何线程同步的代码，性能相对要好，HashTable大部分对外的接口都使用synchronized包裹，所以是线程安全的，但是性能会差。
+算法不一样，Has ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2021/02/27/java/String%E7%B1%BB/" title="String类">String类</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/javaSE/">javaSE</a></span></div><div class="content">1 String str= “” 和 new String()区别String str1= “abc”在编译期，JVM会去常量池来查找是否存在“abc”，
+如果不存在，就在常量池中开辟一个空间来存储“abc”；如果存在，就不用新开辟空间。
+然后在栈内存中开辟一个名字为str1的空间，来存储“abc”在常量池中的地址值。
+String str2 = new String(“abc”)在编译阶段JVM先去常量池中查找是否存在“abc”，如果过不存在，则在常量池中开辟一个空间存储“abc”。
+在运行时期，通过String类的构造器在堆内存中new了一个空间，然后将String池中的“abc”复制一份存放到该堆空间中，在栈中开辟名字为str2的空间，存放堆中new出来的这个String对象的地址值。
+也就是说，前者在初始化的时候可能创建了一个对象，也可能一个对象也没有创建；后者因为new关键字，至少在内存中创建了一个对象，也有可能是两个对象。
+
+特殊创建中，常量池中没有，堆中有1String s1 &#x3D; new String(&quot;he&quot;)+new String(&qu ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2021/02/27/java/%E5%BA%8F%E5%88%97%E5%8C%96/" title="序列化">序列化</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/javaSE/">javaSE</a></span></div><div class="content">序列化序列化可以将对象转化为可传输格式的过程。是一种数据的持久化手段，一般用与网络传输，RMI和RPC等场景中。
+序列化是将对象的状态信息转换为可存储或传输的形式的过程。一般是以字节码或XML格式传输。
+字节码或XML编码格式可以还原为完全相等的对象，这个相反的过程称之为反序列化。
+1 Java实现序列化和反序列化对象序列化机制是Java语言内建的一种对象持久化方式，通过对象序列化，可以把对象的状态保存为字节数组，并且可以反序列化为对象。对象序列化很容易在JVM中的活动对象和字节数组（流）之间进行转换。
+2 相关接口和类
+java.io.Serializable
+java.io.Externalizable
+ObjectOutput
+ObjectInput
+ObjectOutputStream
+ObjectInputStream
+
+2.1 Serializable接口类通过实现java.io.Serializable接口以启用其序列化功能。序列化接口没有方法或字段，仅用于标识可序列化的语义。
+
+当试图对一个对象进行序列化的时候，如果遇到不支持Serializable接口的对象。将抛出N ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/10/"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/12/"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://raw.githubusercontent.com/a8520238/images/main/blog_person.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Lgz</div><div class="author-info__description">释然过往，笑对未来</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">116</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">14</div></a></div></div><a class="button--animated" id="card-info-btn"><i></i><span>木叶飞舞之处，火亦生生不息</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/a8520238" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:360238076@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/28/java/Java%E7%9A%84%E9%9D%99%E6%80%81%E5%88%86%E6%B4%BE%E5%92%8C%E5%8A%A8%E6%80%81%E5%88%86%E6%B4%BE/" title="No title">No title</a><time datetime="2021-02-28T12:46:40.765Z" title="Created 2021-02-28 20:46:40">2021-02-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/28/java/java%E5%A0%86%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98/" title="No title">No title</a><time datetime="2021-02-28T12:46:40.765Z" title="Created 2021-02-28 20:46:40">2021-02-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/27/java/java%E8%B4%9F%E6%95%B0%E4%B8%8E%E6%B5%AE%E7%82%B9%E6%95%B0/" title="java负数和浮点数">java负数和浮点数</a><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/27/%E5%B9%B6%E5%8F%91/15%E7%BA%BF%E7%A8%8B%E6%B1%A0/" title="线程池">线程池</a><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/27/Mysql%E5%BA%95%E5%B1%82%E6%9E%B6%E6%9E%84/" title="mysql底层架构">mysql底层架构</a><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></div></div></div></div></div><div class="card-widget card-webinfo"><div class="card-content"><div class="item-headline"><i class="fas fa-chart-line"></i><span>Info</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">Article :</div><div class="item-count">116</div></div><div class="webinfo-item"><div class="item-name">UV :</div><div class="item-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="item-name">PV :</div><div class="item-count" id="busuanzi_value_site_pv"></div></div><div class="webinfo-item"><div class="item-name">Last Push :</div><div class="item-count" id="last-push-date" data-lastPushDate="2021-02-28T12:47:01.657Z"></div></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://raw.githubusercontent.com/a8520238/images/main/blog_backgroud.jpg)"><div id="footer-wrap"></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><div class="js-pjax"><script>function subtitleType () {
+  if (false) { 
+    var typed = new Typed("#subtitle", {
+      strings: "java后台之路记录".split(","),
+      startDelay: 300,
+      typeSpeed: 150,
+      loop: true,
+      backSpeed: 50
+    })
+  } else {
+    document.getElementById("subtitle").innerHTML = 'java后台之路记录'
+  }
+}
+
+if (false) {
+  if (typeof Typed === 'function') subtitleType()
+  else $.getScript('https://cdn.jsdelivr.net/npm/typed.js/lib/typed.min.js', subtitleType)
+} else {
+  subtitleType()
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>

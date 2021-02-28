@@ -1,0 +1,269 @@
+<!DOCTYPE html><html lang="cn" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>反射 | Lgz_blog</title><meta name="author" content="Lgz"><meta name="copyright" content="Lgz"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="反射 反射可以调用私有方法   反射让java变成了准动态语言，运行时创建类  1 Java的反射机制反射（Reflection）,能在执行期间得到类的内部信息，通过实例对象得到类的信息（包括注解）。 反射对性能有一些影响。  java.lang.Class:代表一个类 java.lang.reflect.Method:代表类的方法 java.lang.reflect.Field:代表类的成员变量">
+<meta property="og:type" content="article">
+<meta property="og:title" content="反射">
+<meta property="og:url" content="http://example.com/2021/02/27/java/%E5%8F%8D%E5%B0%84/index.html">
+<meta property="og:site_name" content="Lgz_blog">
+<meta property="og:description" content="反射 反射可以调用私有方法   反射让java变成了准动态语言，运行时创建类  1 Java的反射机制反射（Reflection）,能在执行期间得到类的内部信息，通过实例对象得到类的信息（包括注解）。 反射对性能有一些影响。  java.lang.Class:代表一个类 java.lang.reflect.Method:代表类的方法 java.lang.reflect.Field:代表类的成员变量">
+<meta property="og:locale">
+<meta property="og:image" content="https://raw.githubusercontent.com/Yqzzxlj/Image-Hosting/master/%E9%A3%8E%E6%99%AF%E7%85%A71.jpeg">
+<meta property="article:published_time" content="2021-02-27T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-02-28T12:46:40.765Z">
+<meta property="article:author" content="Lgz">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Yqzzxlj/Image-Hosting/master/%E9%A3%8E%E6%99%AF%E7%85%A71.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2021/02/27/java/%E5%8F%8D%E5%B0%84/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-02-28 20:46:40'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Lgz_blog" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://raw.githubusercontent.com/a8520238/images/main/blog_person.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">116</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">14</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://raw.githubusercontent.com/Yqzzxlj/Image-Hosting/master/%E9%A3%8E%E6%99%AF%E7%85%A71.jpeg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Lgz_blog</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">反射</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2021-02-28T12:46:40.765Z" title="Updated 2021-02-28 20:46:40">2021-02-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/javaSE/">javaSE</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h1><blockquote>
+<p>反射可以调用私有方法</p>
+</blockquote>
+<blockquote>
+<p>反射让java变成了准动态语言，运行时创建类</p>
+</blockquote>
+<h2 id="1-Java的反射机制"><a href="#1-Java的反射机制" class="headerlink" title="1 Java的反射机制"></a>1 Java的反射机制</h2><p>反射（Reflection）,能在执行期间得到类的内部信息，通过实例对象得到类的信息（包括注解）。</p>
+<p>反射对性能有一些影响。</p>
+<ul>
+<li>java.lang.Class:代表一个类</li>
+<li>java.lang.reflect.Method:代表类的方法</li>
+<li>java.lang.reflect.Field:代表类的成员变量</li>
+<li>java.lang.reflect.Constructor:代表类的构造器</li>
+</ul>
+<h3 id="1-1-使用"><a href="#1-1-使用" class="headerlink" title="1.1 使用"></a>1.1 使用</h3><p>Class&lt;?&gt; c1 = Class.forName(“com.test.User”);</p>
+<ul>
+<li>一个类在内存中只有一个Class对象</li>
+<li>一个类被加载后，类的整个结构都会被封装在Class对象中</li>
+</ul>
+<p>对象可以反射类名，Object类中有getClass()方法。</p>
+<p><img src="http://note.youdao.com/yws/public/resource/5cf00375bd027272dff28d8755142c56/xmlnote/CFCF5DA53ACA483A9543B20DAB37D790/5764"></p>
+<h3 id="1-2-获取Class类的实例"><a href="#1-2-获取Class类的实例" class="headerlink" title="1.2 获取Class类的实例"></a>1.2 获取Class类的实例</h3><ol>
+<li>若是已知具体的类，通过类的class属性获取，该方法最为安全可靠，程序性能高。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class clazz &#x3D; Person.class;</span><br></pre></td></tr></table></figure></li>
+<li>已知某个类的实例，调用该实例的getClass()方法获取Class对象。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class clazz &#x3D; person.getClass();</span><br></pre></td></tr></table></figure></li>
+<li>已知一个类的全类名，且该类在类路径下，可通过Class类的静态方法forName()获取，可能抛出ClassNotFoundException<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class clazz &#x3D; Class.forName(&quot;com.User&quot;);</span><br></pre></td></tr></table></figure></li>
+<li>内置的基本数据类型可以直接用类名<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer.TYPE</span><br></pre></td></tr></table></figure></li>
+<li>还可以利用ClassLoader<br><img src="http://note.youdao.com/yws/public/resource/5cf00375bd027272dff28d8755142c56/xmlnote/D45947069DBC4D66B57CD46D1C589526/5799"></li>
+</ol>
+<h3 id="1-3-什么时候发生类的初始化"><a href="#1-3-什么时候发生类的初始化" class="headerlink" title="1.3 什么时候发生类的初始化"></a>1.3 什么时候发生类的初始化</h3><p><img src="http://note.youdao.com/yws/public/resource/5cf00375bd027272dff28d8755142c56/xmlnote/0A01BA6042124D6689A883D107ECA48A/5805"></p>
+<h3 id="1-4-获取系统类的加载器"><a href="#1-4-获取系统类的加载器" class="headerlink" title="1.4 获取系统类的加载器"></a>1.4 获取系统类的加载器</h3><ul>
+<li>//获取系统类(应用类)加载器 (自定义类类)<br><code>ClassLoader systemClassLoader = ClassLoader.getSystenClassLoader();</code></li>
+<li>//获取系统类加载器的父类加载器–&gt;扩展类加载器(Jre/lib/ext/*.jar)<br><code>ClassLoader parent = systemClassLoader.getParent();</code></li>
+<li>//获取扩展类加载器的父类–&gt;跟加载器 （JDK类）Jre/lib/rt.jar<br><code>ClassLoader parent1 = parent.getParent();</code></li>
+</ul>
+<ol>
+<li>获得系统类加载器可以加载的路径<br><code>System.out.println(System.getProperty(&quot;java.class.path&quot;))</code></li>
+</ol>
+<h2 id="2-获取类的运行时结构"><a href="#2-获取类的运行时结构" class="headerlink" title="2 获取类的运行时结构"></a>2 获取类的运行时结构</h2><p>通过反射能获取运行时类的完整结构<br>Field、Method、Constructor、Superclass、Interface、Annotation</p>
+<p>getDeclared方法有private的 构造器时当前的</p>
+<p>通过反射获取对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Class c1 &#x3D; Class.forname(&quot;com.User&quot;);</span><br><span class="line">User user &#x3D; (User) c1.newInstance();</span><br></pre></td></tr></table></figure>
+<p>通过构造器创建对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Constructor constructor &#x3D; c1.getDeclaredConstructor(String.class, int.class)</span><br><span class="line">User user2 &#x3D; (User)constructor.newInstance(&quot;test&quot;, 11);</span><br></pre></td></tr></table></figure>
+<p>通过反射获取方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Method setName &#x3D; c1.getDeclaredMethod(&quot;setName&quot;, String.class);</span><br></pre></td></tr></table></figure>
+<p>调用反射的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">setName.invoke(user, &quot;test&quot;); </span><br><span class="line">&#x2F;&#x2F;invoke中的参数 第一个是对象，第二个是方法的值</span><br></pre></td></tr></table></figure>
+<p>通过反射操作字段</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Field name &#x3D; c1.getDeclaredField(&quot;name&quot;);</span><br><span class="line">name.setAccessible(true) &#x2F;&#x2F;关闭权限检测</span><br><span class="line">name.set(user, &quot;test&quot;);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>性能普通方法  快于  关闭检测（setAccessible）的反射  快于  反射</p>
+</blockquote>
+<h2 id="3-泛型相关"><a href="#3-泛型相关" class="headerlink" title="3 泛型相关"></a>3 泛型相关</h2><p>判断参数泛型和返回值泛型是否是一种参数化泛型（ParameterizedType）,从而强转，调用方法，得到真实类型<br><img src="http://note.youdao.com/yws/public/resource/5cf00375bd027272dff28d8755142c56/xmlnote/58B6F919876D4E82AC7B49C2011FA35D/5926"></p>
+<p>获取运行时泛型参数信息(genericParameterTypes)(method.getGenericParameterTypes)</p>
+<p><img src="http://note.youdao.com/yws/public/resource/5cf00375bd027272dff28d8755142c56/xmlnote/62D51B0A46154D3BA682D3C030B38ACE/5900"></p>
+<p>获取返回时泛型参数信息(genericReturnType)(method.getGenericReturnType())</p>
+<p><img src="http://note.youdao.com/yws/public/resource/5cf00375bd027272dff28d8755142c56/xmlnote/3A89AD64E44D4AC2991E3A53AFC7FC4A/5914"></p>
+<h2 id="4-反射操作注解"><a href="#4-反射操作注解" class="headerlink" title="4 反射操作注解"></a>4 反射操作注解</h2><p>orm 对象关系模型，利用注解和反射完成对类和表结构的对应关系。</p>
+<p>通过反射方法，可以获得注解内的配置信息，个人感觉是理解的关键。</p>
+<ol>
+<li>定义注解</li>
+</ol>
+<p><img src="http://note.youdao.com/yws/public/resource/5cf00375bd027272dff28d8755142c56/xmlnote/287D56CA586D41C7A5B75B5EDDA55F8C/5941"></p>
+<ol start="2">
+<li>配置注解</li>
+</ol>
+<p><img src="http://note.youdao.com/yws/public/resource/5cf00375bd027272dff28d8755142c56/xmlnote/01FB78EDA9DA472699529A15BB2C2A83/5943"></p>
+<ol start="3">
+<li>反射获得注解的值</li>
+</ol>
+<p><img src="http://note.youdao.com/yws/public/resource/5cf00375bd027272dff28d8755142c56/xmlnote/E3B18F5DA87F4091B3FFC39B10AFA9AE/5945"></p>
+<ol start="4">
+<li>获得注解的示例</li>
+</ol>
+<p><img src="http://note.youdao.com/yws/public/resource/5cf00375bd027272dff28d8755142c56/xmlnote/A0D9B96B91F548ECB280143FD2D4F4B0/5947"></p>
+</article><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/02/27/java/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/"><img class="prev-cover" src="https://raw.githubusercontent.com/Yqzzxlj/Image-Hosting/master/%E9%A3%8E%E6%99%AF%E7%85%A74.jpeg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">动态代理</div></div></a></div><div class="next-post pull-right"><a href="/2021/02/27/java/%E5%AD%97%E8%8A%82%E7%A0%81%E6%89%A7%E8%A1%8C%E5%BC%95%E6%93%8E%E4%B8%8E%E5%B9%B3%E5%8F%B0%E6%97%A0%E5%85%B3%E6%80%A7/"><img class="next-cover" src="https://raw.githubusercontent.com/Yqzzxlj/Image-Hosting/master/%E9%A3%8E%E6%99%AF%E7%85%A76.jpeg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">字节码执行引擎与平台无关性</div></div></a></div></nav></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://raw.githubusercontent.com/a8520238/images/main/blog_person.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Lgz</div><div class="author-info__description">释然过往，笑对未来</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">116</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">14</div></a></div></div><a class="button--animated" id="card-info-btn"><i></i><span>木叶飞舞之处，火亦生生不息</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/a8520238" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:360238076@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%8D%E5%B0%84"><span class="toc-text">反射</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Java%E7%9A%84%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6"><span class="toc-text">1 Java的反射机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E4%BD%BF%E7%94%A8"><span class="toc-text">1.1 使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E8%8E%B7%E5%8F%96Class%E7%B1%BB%E7%9A%84%E5%AE%9E%E4%BE%8B"><span class="toc-text">1.2 获取Class类的实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E5%8F%91%E7%94%9F%E7%B1%BB%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-text">1.3 什么时候发生类的初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-%E8%8E%B7%E5%8F%96%E7%B3%BB%E7%BB%9F%E7%B1%BB%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%99%A8"><span class="toc-text">1.4 获取系统类的加载器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E8%8E%B7%E5%8F%96%E7%B1%BB%E7%9A%84%E8%BF%90%E8%A1%8C%E6%97%B6%E7%BB%93%E6%9E%84"><span class="toc-text">2 获取类的运行时结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%B3%9B%E5%9E%8B%E7%9B%B8%E5%85%B3"><span class="toc-text">3 泛型相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%8F%8D%E5%B0%84%E6%93%8D%E4%BD%9C%E6%B3%A8%E8%A7%A3"><span class="toc-text">4 反射操作注解</span></a></li></ol></li></ol></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/28/java/Java%E7%9A%84%E9%9D%99%E6%80%81%E5%88%86%E6%B4%BE%E5%92%8C%E5%8A%A8%E6%80%81%E5%88%86%E6%B4%BE/" title="No title">No title</a><time datetime="2021-02-28T12:46:40.765Z" title="Created 2021-02-28 20:46:40">2021-02-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/28/java/java%E5%A0%86%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98/" title="No title">No title</a><time datetime="2021-02-28T12:46:40.765Z" title="Created 2021-02-28 20:46:40">2021-02-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/27/java/java%E8%B4%9F%E6%95%B0%E4%B8%8E%E6%B5%AE%E7%82%B9%E6%95%B0/" title="java负数和浮点数">java负数和浮点数</a><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/27/%E5%B9%B6%E5%8F%91/15%E7%BA%BF%E7%A8%8B%E6%B1%A0/" title="线程池">线程池</a><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/27/Mysql%E5%BA%95%E5%B1%82%E6%9E%B6%E6%9E%84/" title="mysql底层架构">mysql底层架构</a><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></div></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://raw.githubusercontent.com/Yqzzxlj/Image-Hosting/master/%E9%A3%8E%E6%99%AF%E7%85%A71.jpeg)"><div id="footer-wrap"></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css"><script>$(function () {
+  $('span.katex-display').wrap('<div class="katex-wrap"></div>')
+})</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>
