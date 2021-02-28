@@ -1,3 +1,13 @@
+---
+title: Java 堆中的对象内存
+date: 2021-2-28
+cover:
+top_img:
+categories: JVM
+tags: 
+mathjax: true
+katex: true
+---
 # Java 堆中的对象内存
 
 ## 1 java 中的对象指向问题

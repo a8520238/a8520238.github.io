@@ -1,3 +1,13 @@
+---
+title: Java的静态分派和动态分派
+date: 2021-2-28
+cover:
+top_img:
+categories: JVM
+tags: 
+mathjax: true
+katex: true
+---
 # Java的静态分派和动态分派
 
 由来：Class文件就在编译过程中，一切方法都只是符号引用，而不是实际地址（直接引用）。直到类加载时期，甚至到运行期间才能确定目标方法的直接引用。这个特性给Java带来了强大的动态扩展能力。
