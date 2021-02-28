@@ -3,9 +3,7 @@ title: LinkedList
 date: 2021-2-28
 cover:
 top_img:
-categories: 
-    - java
-    - java集合框架
+categories: java集合框架
 tags: 
 mathjax: true
 katex: true

@@ -3,9 +3,7 @@ title: java负数和浮点数
 date: 2021-2-28
 cover:
 top_img:
-categories: 
-    - java
-    - javaSE
+categories: javaSE
 tags: 
 mathjax: true
 katex: true

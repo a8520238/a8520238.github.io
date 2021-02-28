@@ -3,9 +3,7 @@ title: tomcat
 date: 2021-2-28
 cover:
 top_img:
-categories: 
-    - java
-    - javaEE
+categories: javaEE
 tags: 
 mathjax: true
 katex: true
