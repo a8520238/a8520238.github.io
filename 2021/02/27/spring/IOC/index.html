@@ -1,0 +1,388 @@
+<!DOCTYPE html><html lang="cn" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>IOC | Lgz_blog</title><meta name="author" content="Lgz"><meta name="copyright" content="Lgz"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="IOC 原理1 工厂 IOC的核心就是工厂   spring相比于EJB是一个轻量级的框架，它整合了工厂，代理，模板，策略等多个设计模式。 工厂模式的关键在与解耦合，针对设计模式中的打开扩展，关闭修改。工厂模式将源码中的赋值操作提取出到配置文件中。  1.1 对象的创建方式 直接使用new来创建 通过反射的方式创建12Class clazz &#x3D; Class.forName(env.get">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IOC">
+<meta property="og:url" content="http://example.com/2021/02/27/spring/IOC/index.html">
+<meta property="og:site_name" content="Lgz_blog">
+<meta property="og:description" content="IOC 原理1 工厂 IOC的核心就是工厂   spring相比于EJB是一个轻量级的框架，它整合了工厂，代理，模板，策略等多个设计模式。 工厂模式的关键在与解耦合，针对设计模式中的打开扩展，关闭修改。工厂模式将源码中的赋值操作提取出到配置文件中。  1.1 对象的创建方式 直接使用new来创建 通过反射的方式创建12Class clazz &#x3D; Class.forName(env.get">
+<meta property="og:locale">
+<meta property="og:image" content="https://raw.githubusercontent.com/Yqzzxlj/Image-Hosting/master/%E9%A3%8E%E6%99%AF%E7%85%A71.jpeg">
+<meta property="article:published_time" content="2021-02-27T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-02-28T12:35:53.780Z">
+<meta property="article:author" content="Lgz">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Yqzzxlj/Image-Hosting/master/%E9%A3%8E%E6%99%AF%E7%85%A71.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2021/02/27/spring/IOC/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-02-28 20:35:53'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Lgz_blog" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://raw.githubusercontent.com/a8520238/images/main/blog_person.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">87</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">11</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://raw.githubusercontent.com/Yqzzxlj/Image-Hosting/master/%E9%A3%8E%E6%99%AF%E7%85%A71.jpeg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Lgz_blog</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">IOC</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2021-02-28T12:35:53.780Z" title="Updated 2021-02-28 20:35:53">2021-02-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/spring/">spring</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="IOC-原理"><a href="#IOC-原理" class="headerlink" title="IOC 原理"></a>IOC 原理</h1><h2 id="1-工厂"><a href="#1-工厂" class="headerlink" title="1 工厂"></a>1 工厂</h2><blockquote>
+<p>IOC的核心就是工厂</p>
+</blockquote>
+<ul>
+<li>spring相比于EJB是一个轻量级的框架，它整合了工厂，代理，模板，策略等多个设计模式。</li>
+<li>工厂模式的关键在与解耦合，针对设计模式中的打开扩展，关闭修改。工厂模式将源码中的赋值操作提取出到配置文件中。</li>
+</ul>
+<h3 id="1-1-对象的创建方式"><a href="#1-1-对象的创建方式" class="headerlink" title="1.1 对象的创建方式"></a>1.1 对象的创建方式</h3><ol>
+<li>直接使用new来创建</li>
+<li>通过反射的方式创建<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Class clazz &#x3D; Class.forName(env.getProperty(&quot;userDAO&quot;));</span><br><span class="line">userDAO &#x3D; (UserDAO) clazz.newInstance();</span><br></pre></td></tr></table></figure>
+<h3 id="1-2-简单工厂和工厂设计模式"><a href="#1-2-简单工厂和工厂设计模式" class="headerlink" title="1.2 简单工厂和工厂设计模式"></a>1.2 简单工厂和工厂设计模式</h3></li>
+</ol>
+<p>简单工厂对于每一个对象有自己的工厂。而每一个工厂中的try，catch块等代码存在，造成了一种冗余。</p>
+<p>工厂设计模式可以解决这种冗余，通过创建一种方法getObject,返回Object类型对象，因为所有对象都是Object子类。这样一个工厂可以创建所有对象，解决了冗余。</p>
+<p>Spring本质：工厂 ApplicationContext(applicationContext.xml)</p>
+<h2 id="2-Spring中工厂的使用"><a href="#2-Spring中工厂的使用" class="headerlink" title="2 Spring中工厂的使用"></a>2 Spring中工厂的使用</h2><ol>
+<li>ApplicationContext(Spring中的工厂)（接口）<ul>
+<li>非web环境： ClassPathXmlApplicationContext</li>
+<li>注解形式：AnnotationConfigApplicationContext</li>
+<li>web环境：XmlWebApplicationContext</li>
+</ul>
+</li>
+<li>ApplicationContext是重量级资源，一个应用只会创建一个工厂对象，一定是线程安全的（多线程并发访问）</li>
+<li>beanDefinitionNames获取的是Spring工厂配置文件中所有bean标签的id值 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String[] beanDefinitionNames &#x3D;</span><br><span class="line">ctx.getBeanDefinitionNames();</span><br></pre></td></tr></table></figure>
+<h2 id="3-注入"><a href="#3-注入" class="headerlink" title="3 注入"></a>3 注入</h2></li>
+</ol>
+<h3 id="3-1-配置文件注入"><a href="#3-1-配置文件注入" class="headerlink" title="3.1 配置文件注入"></a>3.1 配置文件注入</h3><p>注入也就是通过Spring工厂及配置文件，为所创建对象的成员变量赋值。</p>
+<ol>
+<li>使用编码的方式比如set对成员变量赋值存在耦合。</li>
+<li>通过Spring配置文件赋值<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id&#x3D;&quot;person&quot;</span><br><span class="line">    class&#x3D;&quot;com.baizhiedu.basic.Person</span><br><span class="line">    &quot;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;id&quot;&gt;</span><br><span class="line">    &lt;value&gt;10&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;&#x2F;property&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;name&quot;&gt;</span><br><span class="line">    &lt;value&gt;xiaojr&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;&#x2F;property&gt;</span><br><span class="line">&lt;&#x2F;bean&gt;</span><br></pre></td></tr></table></figure>
+<img src="http://note.youdao.com/yws/public/resource/1f4682a8c41f4bbfefa91f24f452c92e/xmlnote/EC465B4348FD4559A3268BCE1E30801B/4828"></li>
+</ol>
+<h3 id="3-2-Set注入详解"><a href="#3-2-Set注入详解" class="headerlink" title="3.2 Set注入详解"></a>3.2 Set注入详解</h3><p><img src="http://note.youdao.com/yws/public/resource/1f4682a8c41f4bbfefa91f24f452c92e/xmlnote/944309719CDA4598B24E24EAEAE7431D/4835"></p>
+<ol>
+<li>JDK内置类型</li>
+</ol>
+<ul>
+<li>String及8中基本类型<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;value&gt;suns&lt;&#x2F;value&gt;</span><br></pre></td></tr></table></figure></li>
+<li>数组<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;list&gt;</span><br><span class="line">&lt;value&gt;suns@zparkhr.com.cn&lt;&#x2F;value&gt;</span><br><span class="line">&lt;value&gt;liucy@zparkhr.com.cn&lt;&#x2F;value&gt;</span><br><span class="line">&lt;value&gt;chenyn@zparkhr.com.cn&lt;&#x2F;value&gt;</span><br><span class="line">&lt;&#x2F;list&gt;</span><br></pre></td></tr></table></figure></li>
+<li>Set集合<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;set&gt;</span><br><span class="line">    &lt;value&gt;11111&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;value&gt;112222&lt;&#x2F;value&gt;</span><br><span class="line">&lt;&#x2F;set&gt;</span><br><span class="line">&lt;set&gt;</span><br><span class="line">    &lt;ref bean</span><br><span class="line">&lt;&#x2F;set&gt;</span><br></pre></td></tr></table></figure></li>
+<li>list集合<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;list&gt;</span><br><span class="line">    &lt;value&gt;11111&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;value&gt;2222&lt;&#x2F;value&gt;</span><br><span class="line">&lt;&#x2F;list&gt;</span><br></pre></td></tr></table></figure></li>
+<li>Map集合<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;map&gt;</span><br><span class="line">    &lt;entry&gt;</span><br><span class="line">        &lt;key&gt;&lt;value&gt;suns&lt;&#x2F;value&gt;&lt;&#x2F;key&gt;</span><br><span class="line">        &lt;value&gt;3434334343&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;&#x2F;entry&gt;</span><br><span class="line">    &lt;entry&gt;</span><br><span class="line">        &lt;key&gt;&lt;value&gt;chenyn&lt;&#x2F;value&gt;&lt;&#x2F;key&gt;</span><br><span class="line">    &lt;&#x2F;entry&gt;</span><br><span class="line">&lt;&#x2F;map&gt;</span><br></pre></td></tr></table></figure></li>
+<li>Properites 是一种特殊的Map key=String value=String<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;props&gt;</span><br><span class="line">    &lt;prop key&#x3D;&quot;key1&quot;&gt;value1&lt;&#x2F;prop&gt;</span><br><span class="line">    &lt;prop key&#x3D;&quot;key2&quot;&gt;value2&lt;&#x2F;prop&gt;</span><br><span class="line">&lt;&#x2F;props&gt;</span><br></pre></td></tr></table></figure></li>
+<li>复杂的JDK类型（Date）<br>需要程序员自定义类型转换器，处理。</li>
+</ul>
+<ol start="2">
+<li>用户自定义类型</li>
+</ol>
+<ul>
+<li>为成员变量提供set get方法，在配置文件中进行注入<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id&#x3D;&quot;userService&quot; class&#x3D;&quot;xxxx.UserServiceImpl&quot;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;userDAO&quot;&gt;</span><br><span class="line">        &lt;bean class&#x3D;&quot;xxx.UserDAOImpl&quot;&#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;property&gt;</span><br><span class="line">&lt;&#x2F;bean&gt;</span><br></pre></td></tr></table></figure></li>
+<li>上面的方法存在缺陷，配置文件代码冗余，被注入对象多次创建，浪费内存资源。使用下面的方法注入引用。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id&#x3D;&quot;userDAO&quot; class&#x3D;&quot;xxx.UserDAOImpl&quot;&#x2F;&gt;</span><br><span class="line">&lt;bean id&#x3D;&quot;userService&quot; class&#x3D;&quot;xxx.UserServiceImpl&quot;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;userDAO&quot;&gt;</span><br><span class="line">        &lt;ref bean&#x3D;&quot;userDAO&quot;&#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;property&gt;</span><br><span class="line">&lt;&#x2F;bean&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="3">
+<li>基于p命名空间简化，也就是不用<property>标签</li>
+</ol>
+<ul>
+<li>基本类型<ul>
+<li><bean id="person" class="xxx.Person" p:name="suns"/></li>
+</ul>
+</li>
+<li>自定义类型<ul>
+<li><bean id="userService" class="xxx.UserServiceImpl"
+p:userDAO-ref="userDAO"/></li>
+</ul>
+</li>
+</ul>
+<h3 id="3-3-构造注入"><a href="#3-3-构造注入" class="headerlink" title="3.3 构造注入"></a>3.3 构造注入</h3><p>注⼊：通过Spring的配置⽂件，为成员变量赋值</p>
+<p>Set注⼊：Spring调⽤Set⽅法 通过配置⽂件为成员变量赋值</p>
+<p>构造注⼊：Spring调⽤构造⽅法 通过配置⽂件为成员变量赋值</p>
+<ul>
+<li>首先为实例对象提供构造器方法，再配置配置文件如下<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id&#x3D;&quot;customer&quot; class&#x3D;&quot;com.baizhiedu.basic.constructer.Customer&quot;&gt;</span><br><span class="line">    &lt;constructor-arg&gt;</span><br><span class="line">        &lt;value&gt;suns&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;&#x2F;constructor-arg&gt;</span><br><span class="line">    &lt;constructor-arg&gt;</span><br><span class="line">        &lt;value&gt;102&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;&#x2F;constructor-arg&gt;</span><br><span class="line">&lt;&#x2F;bean&gt;</span><br></pre></td></tr></table></figure></li>
+<li>构造方法重载<ul>
+<li>参数个数不同时：通过控制<constructor-arg>标签的数量进⾏区分</li>
+<li>构造参数个数相同时：通过在标签引⼊ type属性 进⾏类型的区分<constructor-arg type=""><h3 id="3-4-注入的总结"><a href="#3-4-注入的总结" class="headerlink" title="3.4 注入的总结"></a>3.4 注入的总结</h3>在实战中，应用set注入更多，因为构造方法麻烦（重载），spring底层框架大量应用set注入。</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-反转控制与依赖注入"><a href="#4-反转控制与依赖注入" class="headerlink" title="4 反转控制与依赖注入"></a>4 反转控制与依赖注入</h2><h3 id="4-1-反转控制（IOC-Inverse-of-Control）"><a href="#4-1-反转控制（IOC-Inverse-of-Control）" class="headerlink" title="4.1 反转控制（IOC Inverse of Control）"></a>4.1 反转控制（IOC Inverse of Control）</h3><ul>
+<li>控制：对于成员变量赋值的控制权</li>
+<li>反转控制：把对于成员变量赋值的控制权，从代码反转（转移）到Spring工厂和配置文件中完成</li>
+<li>好处：松耦合</li>
+<li>底层实现：工厂设计模式</li>
+</ul>
+<h3 id="4-2-依赖注入（Dependency-Injection-DI）"><a href="#4-2-依赖注入（Dependency-Injection-DI）" class="headerlink" title="4.2 依赖注入（Dependency Injection DI）"></a>4.2 依赖注入（Dependency Injection DI）</h3><ul>
+<li>注入：通过Spring的⼯⼚及配置⽂件，为对象（bean，组件）的成员变量赋值</li>
+<li>依赖注入：：当⼀个类需要另⼀个类时，就意味着依赖，⼀旦出现依赖，就可以把另⼀个类作为本类的成员变量，最终通过Spring配置⽂件进⾏注⼊(赋值)。</li>
+<li>好处：解耦合</li>
+</ul>
+<h2 id="5-Spring工厂创建复杂对象"><a href="#5-Spring工厂创建复杂对象" class="headerlink" title="5 Spring工厂创建复杂对象"></a>5 Spring工厂创建复杂对象</h2><h3 id="5-1-什么是复杂对象"><a href="#5-1-什么是复杂对象" class="headerlink" title="5.1 什么是复杂对象"></a>5.1 什么是复杂对象</h3><p>复杂对象：指的是不能直接通过new构造方法创建的对象</p>
+<p>比如 Connection SqlSessionFactory</p>
+<h3 id="5-2-Spring工厂创建复杂对象的3种方法"><a href="#5-2-Spring工厂创建复杂对象的3种方法" class="headerlink" title="5.2 Spring工厂创建复杂对象的3种方法"></a>5.2 Spring工厂创建复杂对象的3种方法</h3><ol>
+<li>FactoryBean 接口<ul>
+<li>首先实现FactoryBean接口<br><img src="http://note.youdao.com/yws/public/resource/1f4682a8c41f4bbfefa91f24f452c92e/xmlnote/E4764668C2A1402BA5B96CE03B3FB176/4955"></li>
+<li>Spring配置文件配置<ul>
+<li>如果Class中指定的类型 是FactoryBean接⼝的实现类，那么通过id值获得的是这个类所创建的复杂对象Connection,也就是getObject获得的对象。</li>
+<li><bean id="conn" class="com.baizhiedu.factorybea n.ConnectionFactoryBean"/>
+> 如果就想获得FactoryBean类型的对象ctx.getBean("&conn") 获得就是ConnectionFactoryBean对象.
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>isSingleton⽅法 返回 true 只会创建⼀个复杂对象。一般来说SqlSessionFactory每次都要创建一个true。而Connection是false。</p>
+</blockquote>
+<ol start="2">
+<li>实例工厂<br>作用：避免Spring框架的侵入，整合遗留系统</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id&#x3D;&quot;connFactory&quot;</span><br><span class="line">class&#x3D;&quot;com.baizhiedu.factorybean.ConnectionFactory&quot;&gt;&lt;&#x2F;bean&gt;</span><br><span class="line">&lt;bean id&#x3D;&quot;conn&quot; factorybean&#x3D;&quot; connFactory&quot; factorymethod&#x3D;&quot;</span><br><span class="line">getConnection&quot;&#x2F;&gt;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>静态工厂<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id&#x3D;&quot;conn&quot;</span><br><span class="line">class&#x3D;&quot;com.baizhiedu.factorybean.</span><br><span class="line">StaticConnectionFactory&quot; factorymethod&#x3D;&quot;</span><br><span class="line">getConnection&quot;&#x2F;&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="6-工厂生命周期"><a href="#6-工厂生命周期" class="headerlink" title="6 工厂生命周期"></a>6 工厂生命周期</h2></li>
+</ol>
+<p><img src="http://note.youdao.com/yws/public/resource/1f4682a8c41f4bbfefa91f24f452c92e/xmlnote/7E396C782C8241AD8E3C8328DC8C388A/4992"></p>
+<p>工厂的生命周期包括对象的创建、存活、销毁。</p>
+<h3 id="6-1-创建阶段"><a href="#6-1-创建阶段" class="headerlink" title="6.1 创建阶段"></a>6.1 创建阶段</h3><p>工厂创建的时机：</p>
+<ol>
+<li>如果scope=”singleton”,spring工厂创建的同时创建对象，要注意也可以使用懒加载，也就是如下:<bean lazy-init="true"/></li>
+<li>如果scope=”prototype”，spring工厂会在获取对象的同时，创建对象。也就是ctx.getBean(“”)的时候。</li>
+</ol>
+<h3 id="6-2-初始化阶段"><a href="#6-2-初始化阶段" class="headerlink" title="6.2 初始化阶段"></a>6.2 初始化阶段</h3><ul>
+<li>Spring⼯⼚在创建完对象后，调⽤对象的初<br>始化⽅法，完成对应的初始化操作</li>
+<li>初始化⽅法提供：程序员根据需求，提供<br>初始化⽅法，最终完成初始化操作</li>
+<li>初始化⽅法调⽤：Spring⼯⼚进⾏调⽤</li>
+</ul>
+<ol>
+<li>InitializingBean接⼝<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;程序员根据需求，实现的⽅法，完成初</span><br><span class="line">始化操作</span><br><span class="line">public void</span><br><span class="line">afterProperitesSet()&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>对象中提供一个普通的方法<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public void myInit()&#123;</span><br><span class="line">&#125;</span><br><span class="line">&lt;bean id&#x3D;&quot;product&quot;</span><br><span class="line">class&#x3D;&quot;xxx.Product&quot; initmethod&#x3D;&quot;</span><br><span class="line">myInit&quot;&#x2F;&gt;</span><br></pre></td></tr></table></figure></li>
+<li>顺序</li>
+</ol>
+<ul>
+<li>如果上述方法同时使用，InitializingBean在普通初始化方法之前。</li>
+<li>注入在初始化方法之前。</li>
+</ul>
+<h3 id="6-3-销毁阶段"><a href="#6-3-销毁阶段" class="headerlink" title="6.3 销毁阶段"></a>6.3 销毁阶段</h3><p>Spring销毁对象前，会调⽤对象的销毁⽅法，完成销毁操作</p>
+<ul>
+<li>Spring什么时候销毁所创建的对象？ ctx.close();</li>
+<li>销毁⽅法：程序员根据⾃⼰的需求，定义销毁⽅法，完成销毁操作。调⽤：Spring⼯⼚完成调⽤</li>
+</ul>
+<ol>
+<li>使用<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public void myDestroy()throws</span><br><span class="line">Exception&#123;</span><br><span class="line">&#125;</span><br><span class="line">&lt;bean id&#x3D;&quot;&quot; class&#x3D;&quot;&quot; initmethod&#x3D;&quot;&quot;</span><br><span class="line">destroymethod&#x3D;&quot;</span><br><span class="line">myDestroy&quot;&#x2F;&gt;</span><br></pre></td></tr></table></figure></li>
+<li>分析</li>
+</ol>
+<ul>
+<li>销毁⽅法的操作只适⽤于 scope=”singleton”</li>
+<li>资源的释放操作<br>io.close()<br>connection.close();</li>
+</ul>
+<h2 id="7-property配置"><a href="#7-property配置" class="headerlink" title="7 property配置"></a>7 property配置</h2><p>jdbc.driverClassName = com.mysql.jdbc.Driver</p>
+<p>jdbc.url = jdbc:mysql://localhost:3306/suns?useSSL=false</p>
+<p>jdbc.username = root</p>
+<p>jdbc.password = 123456</p>
+<blockquote>
+<p>Spring的配置⽂件与⼩配置⽂件进⾏整合</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">applicationContext.xml</span><br><span class="line">&lt;context:property-placeholder location&#x3D;&quot;classpath:&#x2F;db.properties&quot;&#x2F;&gt;</span><br></pre></td></tr></table></figure>
+<p>在Spring配置文件中通过${key}获取小配置文件中对应的值<br><img src="http://note.youdao.com/yws/public/resource/1f4682a8c41f4bbfefa91f24f452c92e/xmlnote/B26F81FBAE2B42318EC9FEE72D2A2A84/5060"></p>
+<h2 id="8-自定义类型转换器"><a href="#8-自定义类型转换器" class="headerlink" title="8 自定义类型转换器"></a>8 自定义类型转换器</h2><ol>
+<li>类型转换器<br> 作用：Spring通过类型转换器把配置文件中字符串类型的数据，转换成了对象中成员变量对应类型的数据，进而完成了注入。</li>
+</ol>
+<p><img src="http://note.youdao.com/yws/public/resource/1f4682a8c41f4bbfefa91f24f452c92e/xmlnote/3FAAA19BFB204F749AAAD7FCED8F6453/5077"><br>2. 自定义类型转换器</p>
+<p>原因：当Spring内部没有提供特定类型转换器时，而程序员在应用的过程中还需要使用，就需要自定义。</p>
+<p>比如类implement Converter接口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public class MyDateConverter implements Converter&lt;String, Date&gt; &#123;</span><br><span class="line">&#x2F;&#x2F;convert⽅法作⽤：String ---&gt; Date</span><br><span class="line">    SimpleDateFormat sdf &#x3D; new SimpleDateFormat();</span><br><span class="line">    sdf.parset(String) ---&gt; Date</span><br><span class="line">    param:source 代表的是配置⽂件中 ⽇期字符串 &lt;value&gt;2020-10-11&lt;&#x2F;value&gt;</span><br><span class="line">    return : 当把转换好的Date作为convert⽅法的返回值后，Spring⾃动的为birthday属性进⾏注⼊（赋值）</span><br><span class="line">    @Override</span><br><span class="line">    public Date convert(String source) &#123;</span><br><span class="line">        Date date &#x3D; null;</span><br><span class="line">        try &#123;</span><br><span class="line">            SimpleDateFormat sdf &#x3D; new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span><br><span class="line">            date &#x3D; sdf.parse(source);</span><br><span class="line">            &#125; catch (ParseException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        return date;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>然后在Spring的配置文件中进行配置</p>
+<ul>
+<li>MyDateConverter对象创建出来<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id&#x3D;&quot;myDateConverter&quot;</span><br><span class="line">class&#x3D;&quot;xxxx.MyDateConverter&quot;&#x2F;&gt;</span><br></pre></td></tr></table></figure></li>
+<li>类型转换器的注册<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">⽬的：告知Spring框架，我们所创建的MyDateConverter是⼀个类型转换器</span><br><span class="line">&lt;!--⽤于注册类型转换器--&gt;</span><br><span class="line">&lt;bean id&#x3D;&quot;conversionService&quot; class&#x3D;&quot;org.springframework.context</span><br><span class="line">.support.ConversionServiceFactoryBean&quot;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;converters&quot;&gt;</span><br><span class="line">        &lt;set&gt;</span><br><span class="line">            &lt;ref bean&#x3D;&quot;myDateConverter&quot;&#x2F;&gt;</span><br><span class="line">        &lt;&#x2F;set&gt;</span><br><span class="line">    &lt;&#x2F;property&gt;</span><br><span class="line">&lt;&#x2F;bean&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="3">
+<li>细节</li>
+</ol>
+<ul>
+<li>MyDateConverter中的⽇期的格式，通过依赖注⼊的⽅式，由配置⽂件完成赋值。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">public class MyDateConverter implements Converter&lt;String, Date&gt; &#123;</span><br><span class="line">    private String pattern;</span><br><span class="line">    public String getPattern() &#123;</span><br><span class="line">    return pattern;</span><br><span class="line">&#125;</span><br><span class="line">public void setPattern(String pattern) &#123;</span><br><span class="line">    this.pattern &#x3D; pattern;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;*</span><br><span class="line">convert⽅法作⽤：String ---&gt; Date</span><br><span class="line">SimpleDateFormat sdf &#x3D; new SimpleDateFormat();</span><br><span class="line">sdf.parset(String) ---&gt; Date</span><br><span class="line">param:source 代表的是配置⽂件中 ⽇期字符串 &lt;value&gt;2020-10-11&lt;&#x2F;value&gt;</span><br><span class="line">return : 当把转换好的Date作为convert⽅法的返回值后，Spring⾃动的为birthday属性进⾏注⼊（赋值）</span><br><span class="line">*&#x2F;</span><br><span class="line">@Override</span><br><span class="line">public Date convert(String source) &#123;</span><br><span class="line">    Date date &#x3D; null;</span><br><span class="line">    try &#123;</span><br><span class="line">        SimpleDateFormat sdf &#x3D; new SimpleDateFormat(pattern);</span><br><span class="line">    date &#x3D; sdf.parse(source);</span><br><span class="line">    &#125; catch (ParseException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    return date;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;!--Spring创建MyDateConverter类型</span><br><span class="line">对象--&gt;</span><br><span class="line">&lt;bean id&#x3D;&quot;myDateConverter&quot; class&#x3D;&quot;com.baizhiedu.converter</span><br><span class="line">.MyDateConverter&quot;&gt;</span><br><span class="line">&lt;property name&#x3D;&quot;pattern&quot; value&#x3D;&quot;yyyy-MM-dd&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;bean&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>ConversionSeviceFactoryBean 定义 id属性 值必须conversionService</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>pring框架内置⽇期类型的转换器, ⽇期格式：2020/05/01 (不⽀持 ：2020-05-01)</p>
+</blockquote>
+<h2 id="9-后置处理Bean"><a href="#9-后置处理Bean" class="headerlink" title="9 后置处理Bean"></a>9 后置处理Bean</h2><p>BeanPostProcessor作⽤：对Spring⼯⼚所创建的对象，进⾏再加⼯。本质上讲是一种AOP。</p>
+<p><img src="http://note.youdao.com/yws/public/resource/1f4682a8c41f4bbfefa91f24f452c92e/xmlnote/4E5A9EAC8DD24C5BA29DB46FDF53E9BA/5079"></p>
+<p>程序员实现BeanPostProcessor规定接⼝中的⽅法：</p>
+<p>Object postProcessBeforeInitiallization(Object bean String beanName)</p>
+<p>作⽤：Spring创建完对象，并进⾏注⼊后，可以运⾏Before⽅法进⾏加⼯。获得Spring创建好的对象 ：通过⽅法的参数<br>最终通过返回值交给Spring框架。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Object postProcessAfterInitiallization(</span><br><span class="line">Object bean String beanName)</span><br></pre></td></tr></table></figure>
+<p>作⽤：Spring执⾏完对象的初始化操作后，可以运⾏After⽅法进⾏加⼯获得Spring创建好的对象 ：通过⽅法的参数最终通过返回值交给Spring框架。</p>
+<p>实战中：很少处理Spring的初始化操作：没有必要区分Before After。只需要实现其中的⼀个After⽅法即可</p>
+<p>注意：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">postProcessBeforeInitiallization</span><br><span class="line">return bean对象</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/nuomizhende45/article/details/81158383">IOC源码解读</a></p>
+</article><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/02/27/spring/BeanPostProcess/"><img class="prev-cover" src="https://raw.githubusercontent.com/Yqzzxlj/Image-Hosting/master/%E9%A3%8E%E6%99%AF%E7%85%A74.jpeg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">BeanPostProcess</div></div></a></div><div class="next-post pull-right"><a href="/2021/02/27/spring/SpringMVC/"><img class="next-cover" src="https://raw.githubusercontent.com/Yqzzxlj/Image-Hosting/master/%E9%A3%8E%E6%99%AF%E7%85%A74.jpeg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">SpringMVC</div></div></a></div></nav></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://raw.githubusercontent.com/a8520238/images/main/blog_person.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Lgz</div><div class="author-info__description">释然过往，笑对未来</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">87</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">11</div></a></div></div><a class="button--animated" id="card-info-btn"><i></i><span>木叶飞舞之处，火亦生生不息</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/a8520238" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:360238076@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#IOC-%E5%8E%9F%E7%90%86"><span class="toc-text">IOC 原理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%B7%A5%E5%8E%82"><span class="toc-text">1 工厂</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%88%9B%E5%BB%BA%E6%96%B9%E5%BC%8F"><span class="toc-text">1.1 对象的创建方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E5%92%8C%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="toc-text">1.2 简单工厂和工厂设计模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Spring%E4%B8%AD%E5%B7%A5%E5%8E%82%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-text">2 Spring中工厂的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%B3%A8%E5%85%A5"><span class="toc-text">3 注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%B3%A8%E5%85%A5"><span class="toc-text">3.1 配置文件注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-Set%E6%B3%A8%E5%85%A5%E8%AF%A6%E8%A7%A3"><span class="toc-text">3.2 Set注入详解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E6%9E%84%E9%80%A0%E6%B3%A8%E5%85%A5"><span class="toc-text">3.3 构造注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E6%B3%A8%E5%85%A5%E7%9A%84%E6%80%BB%E7%BB%93"><span class="toc-text">3.4 注入的总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%8F%8D%E8%BD%AC%E6%8E%A7%E5%88%B6%E4%B8%8E%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5"><span class="toc-text">4 反转控制与依赖注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E5%8F%8D%E8%BD%AC%E6%8E%A7%E5%88%B6%EF%BC%88IOC-Inverse-of-Control%EF%BC%89"><span class="toc-text">4.1 反转控制（IOC Inverse of Control）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5%EF%BC%88Dependency-Injection-DI%EF%BC%89"><span class="toc-text">4.2 依赖注入（Dependency Injection DI）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Spring%E5%B7%A5%E5%8E%82%E5%88%9B%E5%BB%BA%E5%A4%8D%E6%9D%82%E5%AF%B9%E8%B1%A1"><span class="toc-text">5 Spring工厂创建复杂对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%8D%E6%9D%82%E5%AF%B9%E8%B1%A1"><span class="toc-text">5.1 什么是复杂对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-Spring%E5%B7%A5%E5%8E%82%E5%88%9B%E5%BB%BA%E5%A4%8D%E6%9D%82%E5%AF%B9%E8%B1%A1%E7%9A%843%E7%A7%8D%E6%96%B9%E6%B3%95"><span class="toc-text">5.2 Spring工厂创建复杂对象的3种方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E5%B7%A5%E5%8E%82%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-text">6 工厂生命周期</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-%E5%88%9B%E5%BB%BA%E9%98%B6%E6%AE%B5"><span class="toc-text">6.1 创建阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-%E5%88%9D%E5%A7%8B%E5%8C%96%E9%98%B6%E6%AE%B5"><span class="toc-text">6.2 初始化阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-%E9%94%80%E6%AF%81%E9%98%B6%E6%AE%B5"><span class="toc-text">6.3 销毁阶段</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-property%E9%85%8D%E7%BD%AE"><span class="toc-text">7 property配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E5%99%A8"><span class="toc-text">8 自定义类型转换器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%E5%90%8E%E7%BD%AE%E5%A4%84%E7%90%86Bean"><span class="toc-text">9 后置处理Bean</span></a></li></ol></li></ol></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/28/java/Java%E7%9A%84%E9%9D%99%E6%80%81%E5%88%86%E6%B4%BE%E5%92%8C%E5%8A%A8%E6%80%81%E5%88%86%E6%B4%BE/" title="No title">No title</a><time datetime="2021-02-28T12:35:53.776Z" title="Created 2021-02-28 20:35:53">2021-02-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/28/java/java%E5%A0%86%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98/" title="No title">No title</a><time datetime="2021-02-28T12:35:53.776Z" title="Created 2021-02-28 20:35:53">2021-02-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/27/java/Servlet%E4%B8%8Etomcat%E7%9A%84%E5%85%B3%E7%B3%BB/" title="servlet和tomcat的关系">servlet和tomcat的关系</a><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/27/java/%E5%BA%8F%E5%88%97%E5%8C%96/" title="序列化">序列化</a><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/27/Mysql%E5%BA%95%E5%B1%82%E6%9E%B6%E6%9E%84/" title="mysql底层架构">mysql底层架构</a><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></div></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://raw.githubusercontent.com/Yqzzxlj/Image-Hosting/master/%E9%A3%8E%E6%99%AF%E7%85%A71.jpeg)"><div id="footer-wrap"></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css"><script>$(function () {
+  $('span.katex-display').wrap('<div class="katex-wrap"></div>')
+})</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>
