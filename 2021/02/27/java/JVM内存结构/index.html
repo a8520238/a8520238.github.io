@@ -1,0 +1,324 @@
+<!DOCTYPE html><html lang="cn" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JVM 内存结构 | Lgz_blog</title><meta name="author" content="Lgz"><meta name="copyright" content="Lgz"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="JVM内存区域划分JVM运行时数据区分为：堆、方法区（元空间）、栈（虚拟机栈、本地方法栈）、程序计数器。   1 程序计数器 Program Counter 线程私有，是当前线程的字节码行号指示器。 如果线程执行 Java 方法，只是字节码指令的地址（行号指示器）； 如果执行的是 Native 方法，计数器值为 Undefined。 程序计数器保证了线程挂起和线程再次获得CPU使用权时，代码的运行">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM 内存结构">
+<meta property="og:url" content="http://example.com/2021/02/27/java/JVM%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84/index.html">
+<meta property="og:site_name" content="Lgz_blog">
+<meta property="og:description" content="JVM内存区域划分JVM运行时数据区分为：堆、方法区（元空间）、栈（虚拟机栈、本地方法栈）、程序计数器。   1 程序计数器 Program Counter 线程私有，是当前线程的字节码行号指示器。 如果线程执行 Java 方法，只是字节码指令的地址（行号指示器）； 如果执行的是 Native 方法，计数器值为 Undefined。 程序计数器保证了线程挂起和线程再次获得CPU使用权时，代码的运行">
+<meta property="og:locale">
+<meta property="og:image" content="https://raw.githubusercontent.com/Yqzzxlj/Image-Hosting/master/%E9%A3%8E%E6%99%AF%E7%85%A74.jpeg">
+<meta property="article:published_time" content="2021-02-27T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-02-28T12:31:33.719Z">
+<meta property="article:author" content="Lgz">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Yqzzxlj/Image-Hosting/master/%E9%A3%8E%E6%99%AF%E7%85%A74.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2021/02/27/java/JVM%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-02-28 20:31:33'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Lgz_blog" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://raw.githubusercontent.com/a8520238/images/main/blog_person.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">78</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://raw.githubusercontent.com/Yqzzxlj/Image-Hosting/master/%E9%A3%8E%E6%99%AF%E7%85%A74.jpeg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Lgz_blog</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">JVM 内存结构</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2021-02-28T12:31:33.719Z" title="Updated 2021-02-28 20:31:33">2021-02-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/JVM/">JVM</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="JVM内存区域划分"><a href="#JVM内存区域划分" class="headerlink" title="JVM内存区域划分"></a>JVM内存区域划分</h1><p>JVM运行时数据区分为：堆、方法区（元空间）、栈（虚拟机栈、本地方法栈）、程序计数器。</p>
+<p><img src="http://note.youdao.com/yws/public/resource/7839ea220156efcfc3c18b40b088fedd/xmlnote/25ECF8708BF34031A26C258879912AFC/2427" alt="JVM内存结构"> </p>
+<h2 id="1-程序计数器-Program-Counter"><a href="#1-程序计数器-Program-Counter" class="headerlink" title="1 程序计数器 Program Counter"></a>1 程序计数器 Program Counter</h2><ul>
+<li>线程私有，是当前线程的字节码行号指示器。<ul>
+<li>如果线程执行 Java 方法，只是字节码指令的地址（行号指示器）；</li>
+<li>如果执行的是 Native 方法，计数器值为 Undefined。</li>
+<li>程序计数器保证了线程挂起和线程再次获得CPU使用权时，代码的运行顺序。</li>
+<li>程序计数器不会发生OOM异常。</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-虚拟机栈（线程栈）-Java-Virtual-Machine-Stacks"><a href="#2-虚拟机栈（线程栈）-Java-Virtual-Machine-Stacks" class="headerlink" title="2 虚拟机栈（线程栈） Java Virtual Machine Stacks"></a>2 虚拟机栈（线程栈） Java Virtual Machine Stacks</h2><h3 id="2-1-用途"><a href="#2-1-用途" class="headerlink" title="2.1 用途"></a>2.1 用途</h3><ul>
+<li><p>线程私有，每个线程都维护一个与线程同时创建的虚拟机栈，线程调用的每个方法对应一个栈帧，栈帧中储存了一个方法的状态信息：</p>
+<ul>
+<li>局部变量表、操作数栈、动态链接、方法出口 等。</li>
+</ul>
+</li>
+<li><p>可能发生的异常：</p>
+<ul>
+<li><code>StackOverflowError</code>：方法调用的深度超过了虚拟机栈深度。</li>
+<li><code>OutOfMemoryError</code>：虚拟机栈随着内容的增加会动态扩展内存，扩展到一定程度无法申请到足够的内存时抛出该异常。</li>
+</ul>
+</li>
+<li><p>使用 -Xss 设置栈大小，通常几百K就够用了。由于栈是线程私有的，线程数越多，占用栈空间越大。</p>
+</li>
+</ul>
+<h3 id="2-2-局部变量表"><a href="#2-2-局部变量表" class="headerlink" title="2.2 局部变量表"></a>2.2 局部变量表</h3><ul>
+<li>局部变量表中存放：基本数据类型、对象引用（包括方法参数 和 局部变量）</li>
+<li>变量槽 Variable Slot：<br>局部变量表的最小单位是 变量槽（Variable Slot），每个变量槽 32 位（4字节）。通过 index 的方式直接索引。<ul>
+<li>普通方法 0 号位存放 this 指针，static 方法没有 this，所以直接存其他数据。</li>
+<li>Slot 可以复用，当局部变量作用域失效时，可以被其他数据覆盖。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-3-操作数栈"><a href="#2-3-操作数栈" class="headerlink" title="2.3 操作数栈"></a>2.3 操作数栈</h3><p>存在于JVM中， 用于辅助计算，存放用于计算的操作数。</p>
+<h2 id="3-本地方法栈"><a href="#3-本地方法栈" class="headerlink" title="3 本地方法栈"></a>3 本地方法栈</h2><p>本地方法栈为 native 方法服务，其他与虚拟机栈类似。</p>
+<p>native 方法比如：<code>String.extern()</code> 方法。</p>
+<blockquote>
+<p>hot spot 虚拟机中的 虚拟机栈 和 本地方法栈 是合在一起的。</p>
+</blockquote>
+<h2 id="4-Java-堆-Heap"><a href="#4-Java-堆-Heap" class="headerlink" title="4 Java 堆 Heap"></a>4 Java 堆 Heap</h2><h3 id="4-1-堆的用途"><a href="#4-1-堆的用途" class="headerlink" title="4.1 堆的用途"></a>4.1 堆的用途</h3><ul>
+<li>堆在 JVM 启动时被创建，用于存放所有的对象实例、数组、String 对象等。</li>
+<li>Java 堆是 JVM 内存管理的最大区域，是垃圾回收的主要场所。</li>
+<li>Java 堆是线程共享的。</li>
+</ul>
+<h3 id="4-2-堆的结构"><a href="#4-2-堆的结构" class="headerlink" title="4.2 堆的结构"></a>4.2 堆的结构</h3><p>堆中包括年轻代（YoungGen）、年轻代包括幸存区（Survivor）和出生区(Eden)、老年代(OldGen)。</p>
+<ul>
+<li>年轻代存储新创建的对象。当年轻内存占满后，会触发 Minor GC，清理年轻代内存空间。</li>
+<li>老年代存储长期存活的对象和大对象。年轻代中存储的对象，经过多次GC后仍然存活的会移动到老年代中进行存储。老年代空间占满后，会触发Full GC，清理整个堆空间，包括年轻代和老年代。如果Full GC之后，堆中仍然无法存储对象，就会抛出OutOfMemoryError异常。<blockquote>
+<p>大对象会直接进入老年代</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="4-3-Java-堆设置常用参数"><a href="#4-3-Java-堆设置常用参数" class="headerlink" title="4.3 Java 堆设置常用参数"></a>4.3 Java 堆设置常用参数</h3><ul>
+<li>-Xms：设置Java应用程序启动时的初始堆大小</li>
+<li>-Xmx：设置Java应用程序能获得的最大堆大小</li>
+<li>-Xss：设置线程栈的大小</li>
+<li>-XX:MinHeapFreeRatio：设置堆空间最小空闲比例。当对空间的空闲内存小于这个数值时，JVM便会扩展堆空间</li>
+<li>-XX:MaxHeapFreeRatio：设置堆空间的最大空闲比例。当堆空间的空闲内存大于这个数值时，便会压缩堆空间，得到一个较小的堆</li>
+<li>-XX:NewSize：设置新生代的大小</li>
+<li>-XX:NewRatio：设置老年代与新生代的比例，它等于老年代大小除以新生代大小</li>
+<li>-XX:SurviorRatio：新生代中eden区与survivior区的比例</li>
+<li>-XX:MaxPermSize：设置最大的持久区的大小</li>
+<li>-XX:PermSize：设置永久区的初始值</li>
+<li>-XX:TargetSurvivorRatio：设置survivior区的可使用率。当survivior区的空间使用率达到这个数值时，会将对象送入老年代</li>
+</ul>
+<blockquote>
+<p>永久代是hotspot虚拟机，也就是我们使用的java虚拟机的特有的概念，他不属于堆内存，是方法区的一种实现，各大厂商对方法区有各自的实现。永久代存放jvm运行时，需要的类，包含java库的类和方法，在触发full gc的情况下，永久代也会被进行垃圾回收。永久代的内存溢出也就是 pergen space。</p>
+</blockquote>
+<blockquote>
+<p>1.8 后JVM移除了永久代，改为元空间。</p>
+</blockquote>
+<h3 id="4-4-堆中存的对象包括"><a href="#4-4-堆中存的对象包括" class="headerlink" title="4.4 堆中存的对象包括"></a>4.4 堆中存的对象包括</h3><p>对中存的是实例化的对象，其中包含实际对象中的各种值，有一个点要注意，堆中对象存有指向方法区方法的指针，调用方法时，通过该指针调用class对象。</p>
+<h2 id="5-方法区-Method-Area"><a href="#5-方法区-Method-Area" class="headerlink" title="5 方法区 Method Area"></a>5 方法区 Method Area</h2><ul>
+<li>存放已被虚拟机加载的 类信息、常量、static变量、*即时编译后的代码 *等。<ul>
+<li>存放每个类的结构信息</li>
+<li>类属性</li>
+<li>类的方法</li>
+<li>方法和类的构造函数的代码（包括类实例在初始化、接口初始化中使用的特殊方法）</li>
+</ul>
+</li>
+<li>线程共享。</li>
+<li>常量池是方法区的一部分。<ul>
+<li>class文件常量池</li>
+<li>运行时常量池</li>
+</ul>
+</li>
+<li>在JDK 1.7及以前，方法区是堆的一个逻辑部分；为了与堆区分，被称为“非堆”或“永久代”。</li>
+</ul>
+<h3 id="5-1-class-文件常量池"><a href="#5-1-class-文件常量池" class="headerlink" title="5.1 class 文件常量池"></a>5.1 class 文件常量池</h3><p>class 文件常量池存在于 .class 字节码文件中。</p>
+<p>存储编译器生成的各种 字面量 和 符号引用 。</p>
+<ul>
+<li>字面量：文本字符串、final 常量、基本类型常量的值</li>
+<li>符号引用：<ul>
+<li>类和接口的全限定名：用于在运行时类加载过程“解析”阶段得到直接引用。</li>
+<li>方法的名称和描述符：描述符即参数类型和返回值类型。</li>
+<li>字段的名称和描述符：包括类变量（static）、实例变量。</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-2-运行时常量池"><a href="#5-2-运行时常量池" class="headerlink" title="5.2 运行时常量池"></a>5.2 运行时常量池</h3><ul>
+<li>运行时常量池是线程共享的。</li>
+<li>存储 Java class文件常量池中的符号信息。在类加载时，第一步是“加载”，包括三步：（1）通过类全限定名来获取二进制字节流；（2）把字节流所代表的静态存储结构转化为方法区的运行时数据结构；（3）方法区中生成Class对象，作为该类的各种数据访问入口。其中，第（2）步中就包含了class常量池中进入运行时常量池的过程。</li>
+<li>存放直接引用。类加载的“解析”阶段会将符号引用所翻译出来的直接引用(直接指向实例对象的指针)存储在 运行时常量池 中。</li>
+<li>常量不一定编译时才能产生，运行时产生的常量会放入运行时常量池。</li>
+</ul>
+<h3 id="5-3-字符串常量池（看Reference-3、4）"><a href="#5-3-字符串常量池（看Reference-3、4）" class="headerlink" title="5.3 字符串常量池（看Reference 3、4）"></a>5.3 字符串常量池（看Reference 3、4）</h3><ul>
+<li>JDK 1.7 之前，字符串常量池存在于运行时常量池（方法区）内；</li>
+<li>JDK 1.7 把其移到了Java 堆中。</li>
+<li>JDK 1.8 中，字符串常量池被移到了元空间，独立于堆。</li>
+</ul>
+<p>常量池避免了频繁的创建和销毁对象而影响系统性能，其实现了对象的共享。</p>
+<blockquote>
+<p>通过new的方式创建String, 其直接引用对象是在堆中，先判断字符串常量池内有无该字符串，如果有，在堆中复制一个副本，把副本的地址给引用；如果没有，先在字符串常量池中创建一个，然后复制到堆中，把堆中地址给引用。</p>
+</blockquote>
+<blockquote>
+<p>String.intern() 方法会返回字符串在字符串常量池中的引用。</p>
+</blockquote>
+<h3 id="5-4-基本类型包装类的常量池"><a href="#5-4-基本类型包装类的常量池" class="headerlink" title="5.4 基本类型包装类的常量池"></a>5.4 基本类型包装类的常量池</h3><p>整型的包装类在对应值小于等于127时才可使用对象池。这里常量池中缓存的是包装类对象，而不是基本数据类型。</p>
+<h3 id="5-5-方法区随-JDK-版本的变化"><a href="#5-5-方法区随-JDK-版本的变化" class="headerlink" title="5.5 方法区随 JDK 版本的变化"></a>5.5 方法区随 JDK 版本的变化</h3><h4 id="JDK-1-7"><a href="#JDK-1-7" class="headerlink" title="JDK 1.7"></a>JDK 1.7</h4><p>JDK 1.7时的Hotspot VM，把方法区中的静态变量、字符串常量池等移到了堆内存。</p>
+<h4 id="Jdk-1-8"><a href="#Jdk-1-8" class="headerlink" title="Jdk 1.8"></a>Jdk 1.8</h4><p>JDK 1.8中，方法区被替换为元空间 Meta Space，它没有占用堆内存，而是直接占用本地内存。</p>
+<p>方法区的参数取代为：</p>
+<ul>
+<li>-XX:MetaspaceSize</li>
+<li>-XX:MaxMetaspaceSize</li>
+</ul>
+<p>JDK1.8中，class对象在堆中，且静态变量在class对象中</p>
+<h2 id="todo-逃逸分析和栈上分配"><a href="#todo-逃逸分析和栈上分配" class="headerlink" title="todo 逃逸分析和栈上分配"></a>todo 逃逸分析和栈上分配</h2><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/rongtaoup/article/details/89142396">一文搞懂JVM内存结构</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/cf78e68e3a99">JVM常量池浅析</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/superyc/p/9975254.html">JVM中的常量池详解</a></p>
+</article><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/02/27/java/JVM%20CLass%E6%96%87%E4%BB%B6/"><img class="prev-cover" src="https://raw.githubusercontent.com/Yqzzxlj/Image-Hosting/master/%E9%A3%8E%E6%99%AF%E7%85%A71.jpeg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">JVM CLass文件</div></div></a></div><div class="next-post pull-right"><a href="/2021/02/27/java/JVM%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/"><img class="next-cover" src="https://raw.githubusercontent.com/Yqzzxlj/Image-Hosting/master/%E9%A3%8E%E6%99%AF%E7%85%A74.jpeg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">JVM 垃圾回收</div></div></a></div></nav></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://raw.githubusercontent.com/a8520238/images/main/blog_person.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Lgz</div><div class="author-info__description">释然过往，笑对未来</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">78</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div></div><a class="button--animated" id="card-info-btn"><i></i><span>木叶飞舞之处，火亦生生不息</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/a8520238" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:360238076@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E5%88%92%E5%88%86"><span class="toc-text">JVM内存区域划分</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8-Program-Counter"><span class="toc-text">1 程序计数器 Program Counter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88%EF%BC%88%E7%BA%BF%E7%A8%8B%E6%A0%88%EF%BC%89-Java-Virtual-Machine-Stacks"><span class="toc-text">2 虚拟机栈（线程栈） Java Virtual Machine Stacks</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E7%94%A8%E9%80%94"><span class="toc-text">2.1 用途</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E8%A1%A8"><span class="toc-text">2.2 局部变量表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E6%93%8D%E4%BD%9C%E6%95%B0%E6%A0%88"><span class="toc-text">2.3 操作数栈</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%9C%AC%E5%9C%B0%E6%96%B9%E6%B3%95%E6%A0%88"><span class="toc-text">3 本地方法栈</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Java-%E5%A0%86-Heap"><span class="toc-text">4 Java 堆 Heap</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E5%A0%86%E7%9A%84%E7%94%A8%E9%80%94"><span class="toc-text">4.1 堆的用途</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E5%A0%86%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-text">4.2 堆的结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-Java-%E5%A0%86%E8%AE%BE%E7%BD%AE%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0"><span class="toc-text">4.3 Java 堆设置常用参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-%E5%A0%86%E4%B8%AD%E5%AD%98%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%8C%85%E6%8B%AC"><span class="toc-text">4.4 堆中存的对象包括</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%96%B9%E6%B3%95%E5%8C%BA-Method-Area"><span class="toc-text">5 方法区 Method Area</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-class-%E6%96%87%E4%BB%B6%E5%B8%B8%E9%87%8F%E6%B1%A0"><span class="toc-text">5.1 class 文件常量池</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-%E8%BF%90%E8%A1%8C%E6%97%B6%E5%B8%B8%E9%87%8F%E6%B1%A0"><span class="toc-text">5.2 运行时常量池</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%B8%B8%E9%87%8F%E6%B1%A0%EF%BC%88%E7%9C%8BReference-3%E3%80%814%EF%BC%89"><span class="toc-text">5.3 字符串常量池（看Reference 3、4）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%8C%85%E8%A3%85%E7%B1%BB%E7%9A%84%E5%B8%B8%E9%87%8F%E6%B1%A0"><span class="toc-text">5.4 基本类型包装类的常量池</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-%E6%96%B9%E6%B3%95%E5%8C%BA%E9%9A%8F-JDK-%E7%89%88%E6%9C%AC%E7%9A%84%E5%8F%98%E5%8C%96"><span class="toc-text">5.5 方法区随 JDK 版本的变化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#JDK-1-7"><span class="toc-text">JDK 1.7</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Jdk-1-8"><span class="toc-text">Jdk 1.8</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#todo-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90%E5%92%8C%E6%A0%88%E4%B8%8A%E5%88%86%E9%85%8D"><span class="toc-text">todo 逃逸分析和栈上分配</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-text">Reference</span></a></li></ol></li></ol></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/28/java/Java%E7%9A%84%E9%9D%99%E6%80%81%E5%88%86%E6%B4%BE%E5%92%8C%E5%8A%A8%E6%80%81%E5%88%86%E6%B4%BE/" title="No title">No title</a><time datetime="2021-02-28T12:31:33.719Z" title="Created 2021-02-28 20:31:33">2021-02-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/28/java/java%E5%A0%86%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98/" title="No title">No title</a><time datetime="2021-02-28T12:31:33.719Z" title="Created 2021-02-28 20:31:33">2021-02-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/27/java/JavaWeb/" title="javaWeb">javaWeb</a><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/27/java/String%E7%B1%BB/" title="String类">String类</a><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/27/Mysql%E5%BA%95%E5%B1%82%E6%9E%B6%E6%9E%84/" title="mysql底层架构">mysql底层架构</a><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></div></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://raw.githubusercontent.com/Yqzzxlj/Image-Hosting/master/%E9%A3%8E%E6%99%AF%E7%85%A74.jpeg)"><div id="footer-wrap"></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css"><script>$(function () {
+  $('span.katex-display').wrap('<div class="katex-wrap"></div>')
+})</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>

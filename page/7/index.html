@@ -1,0 +1,248 @@
+<!DOCTYPE html><html lang="cn" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Lgz_blog - Hey!</title><meta name="author" content="Lgz"><meta name="copyright" content="Lgz"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="释然过往，笑对未来">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Lgz_blog">
+<meta property="og:url" content="http://example.com/page/7/index.html">
+<meta property="og:site_name" content="Lgz_blog">
+<meta property="og:description" content="释然过往，笑对未来">
+<meta property="og:locale">
+<meta property="og:image" content="https://raw.githubusercontent.com/a8520238/images/main/blog_person.jpg">
+<meta property="article:author" content="Lgz">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/a8520238/images/main/blog_person.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/page/7/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2021-02-28 20:31:54'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Lgz_blog" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://raw.githubusercontent.com/a8520238/images/main/blog_person.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">78</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div id="body-wrap"><header class="full_page" id="page-header" style="background-image: url(https://raw.githubusercontent.com/a8520238/images/main/blog_backgroud.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Lgz_blog</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="site-info"><h1 id="site-title">Lgz_blog</h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://github.com/a8520238" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:360238076@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2021/02/27/java/servlet/" title="servlet">servlet</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/javaEE/">javaEE</a></span></div><div class="content">Servlet相关知识整理1 Servleta、servlet是运行在Web服务器中的小型Java程序，可以用过HTTP接受和响应Web客户端的请求。b、servlet是实现了servlet接口的程序
+123456public class ServletDemo implements Servlet &#123;    &#x2F;&#x2F;重写方法service()     public void service(ServletRequest arg0, ServletResponse arg1) throws ServletException, IOException &#123;        System.out.println(&quot;&quot;ok);    &#125;&#125;
+
+2 Servlet执行过程
+3 servlet 生命周期出生：实例化—&gt;初始化 第一次访问(也可以设置在服务器启动时就创建)  init()运行 service()销毁：卸载应用 destory()
+4 Servlet的三种创建方式
+实现javax.servlet.Servle ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2021/02/27/java/%E5%80%BC%E4%BC%A0%E9%80%92%E5%92%8C%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92/" title="值传递和引用传递">值传递和引用传递</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/javaSE/">javaSE</a></span></div><div class="content">值传递和引用传递1值传递值传递是指在调用函数时将实际参数复制一份传递到函数中，这样在函数中如果对参数进行修改，不会影响原来的实际参数。
+2 引用传递引用传递是指在调用函数时将实际参数的地址直接传递到函数中，那么在函数中对参数进行修改，就会影响到实际参数。
+3 Java中只有值传递Java传递对象引用时，实际上是将对象引用的备份进行传递。
+Java中的对象传递，如果是修改引用，是不会对原来的对象有任何影响的，但是如果直接修改共享对象的属性的值，是会对原来的对象有影响的。
+</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2021/02/27/java/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/" title="动态代理">动态代理</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/javaSE/">javaSE</a></span></div><div class="content">动态代理1 JDK动态代理java.lang.reflect包中的Proxy类和InvocationHandler接口提供了生成动态代理类的能力。
+2 Cglib动态代理Cglib(Code Generation Library)是一个第三方代码生成类库，运行时在内存中动态生成一个子类对象从而实现对目标对象功能的扩展。
+3 JDK动态代理和Cglib动态代理的区别使用JDK动态代理对象必须实现一个或多个接口。如果代理没有实现接口的类，就可以使用CGLIB实现。
+Cglib是一个强大的高性能的代码生成包，它可以在运行期扩展Java类与实现Java接口。它广泛的被许多AOP的框架使用，例如Spring AOP和dynaop，为他们提供方法的interception（拦截）。
+使用动态代理的对象必须实现一个或多个接口。使用cglib代理的对象则无需实现接口，达到代理类无侵入。
+4 Java实现动态代理的大致步骤
+定义一个委托类和公共接口。
+自己定义一个类（调用处理器，即实现InvocationHandler接口），这个类的目的是指定运行时将生成的代理类需要完成的具体任务（包括Preproce ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2021/02/27/java/%E5%AD%97%E8%8A%82%E7%A0%81%E6%89%A7%E8%A1%8C%E5%BC%95%E6%93%8E%E4%B8%8E%E5%B9%B3%E5%8F%B0%E6%97%A0%E5%85%B3%E6%80%A7/" title="字节码执行引擎与平台无关性">字节码执行引擎与平台无关性</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/JVM/">JVM</a></span></div><div class="content">字节码执行引擎与平台无关性1 平台无关性总的来说，java语言包括前端编译和后端编译
+
+前端编译也就是java源代码生成class字节码的过程，javac命令
+后端编译由JVM完成，由字节码生成机器指令
+
+2 字节码执行引擎在 Java 虚拟机规范中制定了虚拟机字节码执行引擎的概念模型，这个概念模型成为各种虚拟机执行引擎的统一外观（Facade）。从外观上来看，所有Java虚拟机的执行引擎是一致的：输入的是字节码文件，处理过程是字节码解析的等效过程，输出的是执行结果。
+在其他地方已经记录了java虚拟机的各个部分，这篇主要记录java虚拟机执行中，以及动态链接相关知识
+2.1 动态连接（常量池该帧栈所属方法的引用）每个栈帧都包含一个常量池中该栈帧所属方法的引用。持有该引用的目的是为了支持方法调用中的动态连接。Class文件的常量池中存在大量的符号引用。这些符号引用一部分会在类加载阶段或者第一次使用的时候转化为直接引用，这种方式称为静态解析。另一部分会在每次运行期间转化为直接引用，这种称为动态连接。
+2.2 方法调用方法调用的任务是确定哪个方法被调用。不同于传统的静态连接的语言，Java ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2021/02/27/java/%E5%BC%82%E5%B8%B8/" title="异常">异常</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/javaSE/">javaSE</a></span></div><div class="content">Error和Exception二者都是Java异常处理的重要子类，各自包含大量子类。均继承自Throwable.
+Error表⽰系统级的错误， 是java运⾏环境内部错误或者硬件问题， 不能指望程序来处理这样的问题， 除了退出运⾏外别⽆选择， 它是Java虚拟机抛出的。
+Exception 表⽰程序需要捕捉、 需要处理的常， 是由与程序设计的不完善⽽出现的问题， 程序必须处理的问题。
+finally和return的执行顺序try() ⾥⾯有⼀个return语句， 那么后⾯的finally{}⾥⾯的code会不会被执⾏， 什么时候执⾏， 是在return前还是return后?
+如果try中有return语句， 那么finally中的代码还是会执⾏。因为return表⽰的是要整个⽅法体返回， 所以，finally中的语句会在return之前执⾏。
+但是return前执行的finally块内，对数据的修改效果对于引用类型和值类型会不同
+123456789101112131415161718192021&#x2F;&#x2F; 测试 修改值类型static int f() &#123;     ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2021/02/27/java/%E6%8A%BD%E8%B1%A1%E6%96%B9%E6%B3%95%E4%B8%8E%E6%8E%A5%E5%8F%A3/" title="抽象方法和接口">抽象方法和接口</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/javaSE/">javaSE</a></span></div><div class="content">1 抽象方法
+包含一个或多个抽象方法的类也必须被声明为抽象类。
+使用abstract修饰符来表示抽象方法以及抽象类。
+抽象类除了包含抽象方法外，还可以包含具体的变量和具体的方法。类即使不包含抽象方法，也可以被声明为抽象类，防止被实例化。
+不能有抽象构造方法或抽象静态方法。
+
+2 接口
+接口中每一个方法也是隐式抽象的,接口中的方法会被隐式的指定为 public abstract（只能是 public abstract，其他修饰符都会报错）。
+接口中可以含有变量，但是接口中的变量会被隐式的指定为 public static final 变量（并且只能是 public，用 private 修饰会报编译错误）。
+JDK 1.8 以后，接口里可以有静态方法和方法体了。
+
+</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2021/02/27/java/%E6%97%B6%E9%97%B4%E5%A4%84%E7%90%86/" title="时间处理">时间处理</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/javaSE/">javaSE</a></span></div><div class="content">1 SimpleDateFormat用法
+SimpleDateFormat是线程不安全的类，一般不要定义为static变量，如果定义为static，必须加锁，或者使用DateUtils工具类。
+
+12345678&#x2F;&#x2F; Date转StringDate data &#x3D; new Date();SimpleDateFormat sdf &#x3D; new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);String dataStr &#x3D; sdf.format(data);System.out.println(dataStr);&#x2F;&#x2F; String转DataSystem.out.println(sdf.parse(dataStr));
+
+将当前计算机所处地区的时间转换为其他地区的时间，以转为美国洛杉矶为例子1234567SimpleDateFormat sdf &#x3D; new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);sdf. ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2021/02/27/java/%E6%9E%9A%E4%B8%BE/" title="枚举">枚举</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/javaSE/">javaSE</a></span></div><div class="content">枚举1 定义枚举类型（enum type）是由一组固定的常量组成的合法的类型。Java中有关键字enum来定义一个枚举类型。下面是枚举类型的定义。
+123public enum Sesson &#123;    SPRING, SUMMER, AUTUMN, WINTER;&#125;
+2 特点
+使用关键字enum
+类型名称 比如上述的Season
+一串允许的值
+枚举可以单独定义在一个文件，也可以嵌在其他Java类中。
+枚举可以实现一个或多个接口
+可以定义新的变量
+可以定义新的方法
+可以定义根据具体枚举值而相异的类
+
+1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253public enum Season &#123;    SPRING(1), SUMMER(2), AUTUMN(3), WINTER(4);    private int code;    private Season(int code)&#123;        this.c ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2021/02/27/java/%E6%B3%9B%E5%9E%8B/" title="泛型">泛型</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/javaSE/">javaSE</a></span></div><div class="content">泛型1 各种语言如何处理泛型通常情况下，一个编译器处理泛型有两种方式：
+
+code specialization. 在实例化一个泛型类或泛型泛型方法时都产生一份新的目标代码（字节码或者二进制代码）。例如，针对一个泛型list,可能需要针对string,integer,float产生三份目标代码。
+code sharing。对每个泛型类只生成唯一的一份目标代码；该泛型类的所有实例都映射到这份目标代码上，在需要的时候执行类型检查和类型转换。
+
+
+C++ 中的类模板时候code specialization实现。C++编译器会为每一个泛型类实例生成一份执行代码。执行代码中integer list和string list是两种不同的类型。这样会导致代码膨胀
+java语言中的泛型则不一样，它只在程序源码中存在，在编译后的字节码文件中，就已经被替换为原来的原生类型（Raw Type 裸类型），并且在相应的地方插入了强制转型的代码，因此对于运行期的java语言来说，Arraylist与ArrayList就是同一个类。所以说泛型技术实际上是java语言的一颗语法糖，java语言中的泛型实现方法称为类型 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2021/02/27/java/%E8%87%AA%E5%8A%A8%E8%A3%85%E7%AE%B1/" title="自动装箱">自动装箱</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/javaSE/">javaSE</a></span></div><div class="content">自动装箱1 基本数据类型有什么好处
+new的对象是存储在堆里，我们通过栈中的引用来使用这些对象。
+Java提供了基本数据类型，这种数据的变量不需要使用new创建，他们不会再堆上创建，而是直接在栈内存中存储。
+
+2 为什么不能用浮点型表示金额计算机中保存的小数其实是十进制的小数的近似值，并不是准确值。建议使用BigDecimal或者Long。
+3 包装类型
+byte        Byte
+boolean     Boolean
+short       Short
+char        Character
+int         Integer
+long        Long
+float       Float
+double      Double
+
+4 自动拆箱装箱例子如下
+1234public static  void main(String[]args)&#123;      Integer integer&#x3D;1; &#x2F;&#x2F;装箱      int i&#x3D;integer; &#x2F;&#x2F;拆箱  &#125;
+反编译后
+1234public ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/6/"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/8/"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://raw.githubusercontent.com/a8520238/images/main/blog_person.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Lgz</div><div class="author-info__description">释然过往，笑对未来</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">78</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div></div><a class="button--animated" id="card-info-btn"><i></i><span>木叶飞舞之处，火亦生生不息</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/a8520238" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:360238076@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/28/java/Java%E7%9A%84%E9%9D%99%E6%80%81%E5%88%86%E6%B4%BE%E5%92%8C%E5%8A%A8%E6%80%81%E5%88%86%E6%B4%BE/" title="No title">No title</a><time datetime="2021-02-28T12:31:33.719Z" title="Created 2021-02-28 20:31:33">2021-02-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/28/java/java%E5%A0%86%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98/" title="No title">No title</a><time datetime="2021-02-28T12:31:33.719Z" title="Created 2021-02-28 20:31:33">2021-02-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/27/java/JavaWeb/" title="javaWeb">javaWeb</a><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/27/java/String%E7%B1%BB/" title="String类">String类</a><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/27/Mysql%E5%BA%95%E5%B1%82%E6%9E%B6%E6%9E%84/" title="mysql底层架构">mysql底层架构</a><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></div></div></div></div></div><div class="card-widget card-webinfo"><div class="card-content"><div class="item-headline"><i class="fas fa-chart-line"></i><span>Info</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">Article :</div><div class="item-count">78</div></div><div class="webinfo-item"><div class="item-name">UV :</div><div class="item-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="item-name">PV :</div><div class="item-count" id="busuanzi_value_site_pv"></div></div><div class="webinfo-item"><div class="item-name">Last Push :</div><div class="item-count" id="last-push-date" data-lastPushDate="2021-02-28T12:31:54.395Z"></div></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://raw.githubusercontent.com/a8520238/images/main/blog_backgroud.jpg)"><div id="footer-wrap"></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><div class="js-pjax"><script>function subtitleType () {
+  if (false) { 
+    var typed = new Typed("#subtitle", {
+      strings: "java后台之路记录".split(","),
+      startDelay: 300,
+      typeSpeed: 150,
+      loop: true,
+      backSpeed: 50
+    })
+  } else {
+    document.getElementById("subtitle").innerHTML = 'java后台之路记录'
+  }
+}
+
+if (false) {
+  if (typeof Typed === 'function') subtitleType()
+  else $.getScript('https://cdn.jsdelivr.net/npm/typed.js/lib/typed.min.js', subtitleType)
+} else {
+  subtitleType()
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>

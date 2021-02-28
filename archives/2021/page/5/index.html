@@ -1,0 +1,145 @@
+<!DOCTYPE html><html lang="cn" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Archives | Lgz_blog</title><meta name="author" content="Lgz"><meta name="copyright" content="Lgz"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="释然过往，笑对未来">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Lgz_blog">
+<meta property="og:url" content="http://example.com/archives/2021/page/5/index.html">
+<meta property="og:site_name" content="Lgz_blog">
+<meta property="og:description" content="释然过往，笑对未来">
+<meta property="og:locale">
+<meta property="og:image" content="https://raw.githubusercontent.com/a8520238/images/main/blog_person.jpg">
+<meta property="article:author" content="Lgz">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/a8520238/images/main/blog_person.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/archives/2021/page/5/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: false,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2021-02-28 20:31:54'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Lgz_blog" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://raw.githubusercontent.com/a8520238/images/main/blog_person.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">78</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div id="body-wrap"><header class="not-index-bg" id="page-header" style="background-image: url(https://raw.githubusercontent.com/a8520238/images/main/blog_backgroud.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Lgz_blog</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="page-site-info"><h1 id="site-title">Archives</h1></div></header><main class="layout" id="content-inner"><div id="archive"><div class="article-sort-title">Articles - 78</div><div class="article-sort"><div class="article-sort-item year">2021</div><div class="article-sort-item no-article-cover"><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></div><a class="article-sort-item-title" href="/2021/02/27/java/%E5%BA%8F%E5%88%97%E5%8C%96/" title="序列化">序列化</a></div></div><div class="article-sort-item no-article-cover"><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></div><a class="article-sort-item-title" href="/2021/02/27/java/LinkedList/" title="LinkedList">LinkedList</a></div></div><div class="article-sort-item no-article-cover"><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></div><a class="article-sort-item-title" href="/2021/02/27/java/SPI/" title="SPI">SPI</a></div></div><div class="article-sort-item no-article-cover"><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></div><a class="article-sort-item-title" href="/2021/02/27/java/Servlet%E4%B8%8Etomcat%E7%9A%84%E5%85%B3%E7%B3%BB/" title="servlet和tomcat的关系">servlet和tomcat的关系</a></div></div><div class="article-sort-item no-article-cover"><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></div><a class="article-sort-item-title" href="/2021/02/27/java/Set/" title="Set">Set</a></div></div><div class="article-sort-item no-article-cover"><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></div><a class="article-sort-item-title" href="/2021/02/27/java/SpringBoot%E5%86%85%E7%BD%AEtomcat/" title="springboot配置tomcat">springboot配置tomcat</a></div></div><div class="article-sort-item no-article-cover"><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></div><a class="article-sort-item-title" href="/2021/02/27/java/Tomcat/" title="tomcat">tomcat</a></div></div><div class="article-sort-item no-article-cover"><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></div><a class="article-sort-item-title" href="/2021/02/27/java/Tomcat%E7%83%AD%E9%83%A8%E7%BD%B2/" title="tomcat热部署">tomcat热部署</a></div></div><div class="article-sort-item no-article-cover"><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></div><a class="article-sort-item-title" href="/2021/02/27/java/TreeMap%E5%92%8C%E7%BA%A2%E9%BB%91%E6%A0%91/" title="TreeMap和红黑树">TreeMap和红黑树</a></div></div><div class="article-sort-item no-article-cover"><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></div><a class="article-sort-item-title" href="/2021/02/27/java/cookie_session_token/" title="cookie_session_token">cookie_session_token</a></div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/archives/2021/page/4/"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/archives/2021/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2021/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/archives/2021/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2021/page/8/">8</a><a class="extend next" rel="next" href="/archives/2021/page/6/"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://raw.githubusercontent.com/a8520238/images/main/blog_person.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Lgz</div><div class="author-info__description">释然过往，笑对未来</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">78</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div></div><a class="button--animated" id="card-info-btn"><i></i><span>木叶飞舞之处，火亦生生不息</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/a8520238" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:360238076@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/28/java/Java%E7%9A%84%E9%9D%99%E6%80%81%E5%88%86%E6%B4%BE%E5%92%8C%E5%8A%A8%E6%80%81%E5%88%86%E6%B4%BE/" title="No title">No title</a><time datetime="2021-02-28T12:31:33.719Z" title="Created 2021-02-28 20:31:33">2021-02-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/28/java/java%E5%A0%86%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98/" title="No title">No title</a><time datetime="2021-02-28T12:31:33.719Z" title="Created 2021-02-28 20:31:33">2021-02-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/27/java/JavaWeb/" title="javaWeb">javaWeb</a><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/27/java/String%E7%B1%BB/" title="String类">String类</a><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/27/Mysql%E5%BA%95%E5%B1%82%E6%9E%B6%E6%9E%84/" title="mysql底层架构">mysql底层架构</a><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></div></div></div></div></div><div class="card-widget card-webinfo"><div class="card-content"><div class="item-headline"><i class="fas fa-chart-line"></i><span>Info</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">Article :</div><div class="item-count">78</div></div><div class="webinfo-item"><div class="item-name">UV :</div><div class="item-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="item-name">PV :</div><div class="item-count" id="busuanzi_value_site_pv"></div></div><div class="webinfo-item"><div class="item-name">Last Push :</div><div class="item-count" id="last-push-date" data-lastPushDate="2021-02-28T12:31:54.395Z"></div></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://raw.githubusercontent.com/a8520238/images/main/blog_backgroud.jpg)"><div id="footer-wrap"></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>

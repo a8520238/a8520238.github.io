@@ -1,0 +1,295 @@
+<!DOCTYPE html><html lang="cn" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>tomcat | Lgz_blog</title><meta name="author" content="Lgz"><meta name="copyright" content="Lgz"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="Tomcat Tomcat的默认端口是8080,如果想要修改，需要在server.xml修改下的路由。   Tomcat服务器的根目录下有一个logs文件夹，其中有一个以”catalina.yyyy-MM-dd.log”形式命名的log文件，例如”catalina.2014-05-17.log”日志文件就是记录Tomcat服务器2014-05-17这一天的运行情况。  1 抽象化Tomcat123">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tomcat">
+<meta property="og:url" content="http://example.com/2021/02/27/java/Tomcat/index.html">
+<meta property="og:site_name" content="Lgz_blog">
+<meta property="og:description" content="Tomcat Tomcat的默认端口是8080,如果想要修改，需要在server.xml修改下的路由。   Tomcat服务器的根目录下有一个logs文件夹，其中有一个以”catalina.yyyy-MM-dd.log”形式命名的log文件，例如”catalina.2014-05-17.log”日志文件就是记录Tomcat服务器2014-05-17这一天的运行情况。  1 抽象化Tomcat123">
+<meta property="og:locale">
+<meta property="og:image" content="https://raw.githubusercontent.com/Yqzzxlj/Image-Hosting/master/%E9%A3%8E%E6%99%AF%E7%85%A76.jpeg">
+<meta property="article:published_time" content="2021-02-27T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-02-28T12:31:33.719Z">
+<meta property="article:author" content="Lgz">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Yqzzxlj/Image-Hosting/master/%E9%A3%8E%E6%99%AF%E7%85%A76.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2021/02/27/java/Tomcat/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-02-28 20:31:33'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Lgz_blog" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://raw.githubusercontent.com/a8520238/images/main/blog_person.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">78</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://raw.githubusercontent.com/Yqzzxlj/Image-Hosting/master/%E9%A3%8E%E6%99%AF%E7%85%A76.jpeg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Lgz_blog</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">tomcat</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2021-02-28T12:31:33.719Z" title="Updated 2021-02-28 20:31:33">2021-02-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/javaEE/">javaEE</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Tomcat"><a href="#Tomcat" class="headerlink" title="Tomcat"></a>Tomcat</h1><blockquote>
+<p>Tomcat的默认端口是8080,如果想要修改，需要在server.xml修改<Connector>下的路由。</p>
+</blockquote>
+<blockquote>
+<p>Tomcat服务器的根目录下有一个logs文件夹，其中有一个以”catalina.yyyy-MM-dd.log”形式命名的log文件，例如”catalina.2014-05-17.log”日志文件就是记录Tomcat服务器2014-05-17这一天的运行情况。</p>
+</blockquote>
+<h2 id="1-抽象化Tomcat"><a href="#1-抽象化Tomcat" class="headerlink" title="1 抽象化Tomcat"></a>1 抽象化Tomcat</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class Tomcat &#123;</span><br><span class="line">    Connector connector;</span><br><span class="line">    List&lt;Servlet&gt; servlets;</span><br><span class="line">&#125; </span><br><span class="line">Servlet &#x3D;&#x3D;&#x3D;&#x3D; server + applet(客户端);</span><br><span class="line"></span><br><span class="line">Java applet -- 客户端；</span><br><span class="line"></span><br><span class="line">Java servlet -- 服务端 网络请求；</span><br></pre></td></tr></table></figure>
+<ul>
+<li>tomcat 需要实现HttpServletRequest 做为doGet的参数</li>
+</ul>
+<p>tomcat服务器的启动是基于一个server.xml文件的，Tomcat启动的时候首先会启动一个Server，Server里面就会启动Service，Service里面就会启动多个”Connector(连接器)”，每一个连接器都在等待客户机的连接，当有用户使用浏览器去访问服务器上面的web资源时，首先是连接到Connector(连接器)，Connector(连接器)是不处理用户的请求的，而是将用户的请求交给一个Engine(引擎)去处理，Engine(引擎)接收到请求后就会解析用户想要访问的Host，然后将请求交给相应的Host，Host收到请求后就会解析出用户想要访问这个Host下面的哪一个Web应用,一个web应用对应一个Context。<br><img src="http://note.youdao.com/yws/public/resource/bca95011244292ba9b4a461a47885868/xmlnote/0B563EA3F89144F59D3B673D18D41EC4/6758"></p>
+<h2 id="2-tomcat包括"><a href="#2-tomcat包括" class="headerlink" title="2 tomcat包括"></a>2 tomcat包括</h2><h3 id="2-1-tomcat包括"><a href="#2-1-tomcat包括" class="headerlink" title="2.1 tomcat包括"></a>2.1 tomcat包括</h3><p><img src="http://note.youdao.com/yws/public/resource/bca95011244292ba9b4a461a47885868/xmlnote/B53EDE320F794119B89990BECC0A6FAA/6391"></p>
+<h3 id="2-2-tomcat配置"><a href="#2-2-tomcat配置" class="headerlink" title="2.2 tomcat配置"></a>2.2 tomcat配置</h3><p>服务器核心配置文件在conf/server.xml</p>
+<h3 id="2-3-修改localhost"><a href="#2-3-修改localhost" class="headerlink" title="2.3 修改localhost"></a>2.3 修改localhost</h3><p>在server.xml中修改<host>标签</p>
+<p>然后再driver/etc/hosts修改127.0.0.1对应我们新修改后的主机名</p>
+<h3 id="2-4-tomcat-web目录"><a href="#2-4-tomcat-web目录" class="headerlink" title="2.4 tomcat web目录"></a>2.4 tomcat web目录</h3><p><img src="http://note.youdao.com/yws/public/resource/bca95011244292ba9b4a461a47885868/xmlnote/458BBBDDE9284E6D9940F19E569FA882/6789"></p>
+<h2 id="3-tomcat架构和底层原理"><a href="#3-tomcat架构和底层原理" class="headerlink" title="3 tomcat架构和底层原理"></a>3 tomcat架构和底层原理</h2><p><img src="http://note.youdao.com/yws/public/resource/bca95011244292ba9b4a461a47885868/xmlnote/3D935FBB9F9045DAB53EE940D011499D/7264"></p>
+<h3 id="3-1-Tomcat是一个Servlet容器"><a href="#3-1-Tomcat是一个Servlet容器" class="headerlink" title="3.1 Tomcat是一个Servlet容器"></a>3.1 Tomcat是一个Servlet容器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class Tomcat &#123;</span><br><span class="line">    Connector connector;</span><br><span class="line">    List&lt;Servlet&gt; servlets;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<ol>
+<li>HttpServletRequest 是Tomcat实现的类RequestFacade(门面模式)</li>
+<li>MyServlet extends HttpServlet 是tomcat依据class文件创建的。</li>
+</ol>
+<blockquote>
+<p>门面模式：（相当于1对多的代理模式）</p>
+</blockquote>
+<blockquote>
+<p>   RequestFacde 继承HttpServletRequest</p>
+</blockquote>
+<blockquote>
+<p>   Request 也继承HttpServletRequest</p>
+</blockquote>
+<blockquote>
+<p>RequestFacde会调用Request中的同名方法   </p>
+</blockquote>
+<ol start="3">
+<li>Tomcat部署的三种方法</li>
+</ol>
+<ul>
+<li>文件夹部署 把class文件夹拉入，换成.war</li>
+<li>war包部署 把war包拉入</li>
+<li>Context部署 <Context path="/ServletHello(项目名(也就是war包|文件夹的名字))" docBase="实际路径"/></li>
+</ul>
+<ol start="4">
+<li>context </li>
+</ol>
+<ul>
+<li>context本质也是一个Servlet容器 它继承了Container</li>
+</ul>
+<ol start="5">
+<li>context Host Wrapper Engine</li>
+</ol>
+<ul>
+<li>这四个接口是Tomcat的四个容器</li>
+<li>Context 应用–servlet(存放)</li>
+<li>Host 虚拟主机–Context(存放),对应localhost那一层的名字</li>
+<li>Engine Host容器，用来管理主机集群</li>
+<li>Wrapper<ul>
+<li>Engine-&gt;Host-&gt;Context-&gt;Wrapper-&gt;Servlet</li>
+<li>对每一个HttpServlet进行单例创建，也就是每个Servlet类有多个Servlet实例，Wrapper用来存放每个类的实例集合。</li>
+<li>Wrapper -&gt; List<Servlet> servlets;</li>
+<li>Context -&gt; List<Wrapper> list;</li>
+</ul>
+</li>
+</ul>
+<ol start="6">
+<li>Pipeline</li>
+</ol>
+<p>上述四个容器，每个容器下都有一个PipeLine.管道中有阀门（Valve），将请求传递给下一层容器。</p>
+<p><a target="_blank" rel="noopener" href="https://www.yuque.com/renyong-jmovm/kb">语雀周瑜优质资源</a></p>
+<h3 id="3-2-Request对象生成"><a href="#3-2-Request对象生成" class="headerlink" title="3.2 Request对象生成"></a>3.2 Request对象生成</h3><blockquote>
+<p>端口和应用程序绑定</p>
+</blockquote>
+<ol>
+<li>服务器A和服务器B之间的通讯由TCP可靠</li>
+<li>TCP由操作系统实现<ul>
+<li>linux: tcp_connect() //建立TCP连接</li>
+<li>负责数据可靠传输</li>
+</ul>
+</li>
+<li>HTTP可由Tomcat|浏览器实现<ul>
+<li>浏览器输入，构造Http数据</li>
+<li>tomcat对数据进行解析，需要实现Http</li>
+<li>tomcat从socket中区数据</li>
+</ul>
+</li>
+<li>socket时linux暴露的接口，时tcp_connect的对外接口</li>
+<li>jAVA中 Socket是建立tcp连接，DatagramSocket是建立udp连接<ul>
+<li>socket0的方法是实现创建TCP中的native方法</li>
+</ul>
+</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV19E411j7cD?from=search&seid=6660309239296162043">鲁班学院详解</a></p>
+<h1 id="4-tomcat与JVM的关系"><a href="#4-tomcat与JVM的关系" class="headerlink" title="4 tomcat与JVM的关系"></a>4 tomcat与JVM的关系</h1><ol>
+<li>一个tomcat是一个进程，其中有很多线程（与有多少个app无关）</li>
+<li>一个JVM启动一个tomcat，其中可以有很多APP</li>
+<li>一个tomcat中部署多个app，虽然同处一个JVM中，但是由于无法相互调用，所以也可以认为是分布式的<ul>
+<li>一个tomcat只启动一个JVM，也就是说3个应用都是跑在一个JVM里，之所以它们不能互相调用是因为被类加载器隔离开的。 </li>
+<li>可见性规则：类只能看到由其类加载器的委托加载的其他类，委托是类的加载器及其所有父类加载器的递归集</li>
+</ul>
+</li>
+</ol>
+</article><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/02/27/java/SpringBoot%E5%86%85%E7%BD%AEtomcat/"><img class="prev-cover" src="https://raw.githubusercontent.com/Yqzzxlj/Image-Hosting/master/%E9%A3%8E%E6%99%AF%E7%85%A71.jpeg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">springboot配置tomcat</div></div></a></div><div class="next-post pull-right"><a href="/2021/02/27/java/Tomcat%E7%83%AD%E9%83%A8%E7%BD%B2/"><img class="next-cover" src="https://raw.githubusercontent.com/Yqzzxlj/Image-Hosting/master/%E9%A3%8E%E6%99%AF%E7%85%A72.jpeg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">tomcat热部署</div></div></a></div></nav></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://raw.githubusercontent.com/a8520238/images/main/blog_person.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Lgz</div><div class="author-info__description">释然过往，笑对未来</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">78</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div></div><a class="button--animated" id="card-info-btn"><i></i><span>木叶飞舞之处，火亦生生不息</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/a8520238" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:360238076@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Tomcat"><span class="toc-text">Tomcat</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%8A%BD%E8%B1%A1%E5%8C%96Tomcat"><span class="toc-text">1 抽象化Tomcat</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-tomcat%E5%8C%85%E6%8B%AC"><span class="toc-text">2 tomcat包括</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-tomcat%E5%8C%85%E6%8B%AC"><span class="toc-text">2.1 tomcat包括</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-tomcat%E9%85%8D%E7%BD%AE"><span class="toc-text">2.2 tomcat配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E4%BF%AE%E6%94%B9localhost"><span class="toc-text">2.3 修改localhost</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-tomcat-web%E7%9B%AE%E5%BD%95"><span class="toc-text">2.4 tomcat web目录</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-tomcat%E6%9E%B6%E6%9E%84%E5%92%8C%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86"><span class="toc-text">3 tomcat架构和底层原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-Tomcat%E6%98%AF%E4%B8%80%E4%B8%AAServlet%E5%AE%B9%E5%99%A8"><span class="toc-text">3.1 Tomcat是一个Servlet容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-Request%E5%AF%B9%E8%B1%A1%E7%94%9F%E6%88%90"><span class="toc-text">3.2 Request对象生成</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-tomcat%E4%B8%8EJVM%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-text">4 tomcat与JVM的关系</span></a></li></ol></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/28/java/Java%E7%9A%84%E9%9D%99%E6%80%81%E5%88%86%E6%B4%BE%E5%92%8C%E5%8A%A8%E6%80%81%E5%88%86%E6%B4%BE/" title="No title">No title</a><time datetime="2021-02-28T12:31:33.719Z" title="Created 2021-02-28 20:31:33">2021-02-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/28/java/java%E5%A0%86%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98/" title="No title">No title</a><time datetime="2021-02-28T12:31:33.719Z" title="Created 2021-02-28 20:31:33">2021-02-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/27/java/JavaWeb/" title="javaWeb">javaWeb</a><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/27/java/String%E7%B1%BB/" title="String类">String类</a><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/27/Mysql%E5%BA%95%E5%B1%82%E6%9E%B6%E6%9E%84/" title="mysql底层架构">mysql底层架构</a><time datetime="2021-02-27T16:00:00.000Z" title="Created 2021-02-28 00:00:00">2021-02-28</time></div></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://raw.githubusercontent.com/Yqzzxlj/Image-Hosting/master/%E9%A3%8E%E6%99%AF%E7%85%A76.jpeg)"><div id="footer-wrap"></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css"><script>$(function () {
+  $('span.katex-display').wrap('<div class="katex-wrap"></div>')
+})</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>
