@@ -1,9 +1,9 @@
 ---
-title: SpringMVC
+title: springmvc
 date: 2021-2-28
 cover:
 top_img:
-categories: spring
+categories: springmvc
 tags: 
 mathjax: true
 katex: true
